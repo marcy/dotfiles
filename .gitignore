@@ -1,0 +1,12 @@
+auto-fu.zsh
+config
+*.gitconfig
+dot.gitignore_global
+dot.mew.el
+dot.rubocop.yml
+dot.signature
+dot.ssh
+dot.zsh-history
+dot.zshenv
+dot.zshrc
+local
