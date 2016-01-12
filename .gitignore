@@ -1,10 +1,5 @@
 config
 *.gitconfig
-dot.mew.el
-dot.rubocop.yml
-dot.signature
 dot.ssh
 dot.zsh-history
-dot.zshenv
-dot.zshrc
 local
