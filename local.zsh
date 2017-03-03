@@ -7,6 +7,7 @@ setopt hist_save_no_dups     # 古いコマンドと同じものは無視
 setopt hist_no_store         # historyコマンドは履歴に登録しない
 setopt hist_expand           # 補完時にヒストリを自動的に展開
 setopt inc_append_history    # 履歴をインクリメンタルに追加
+setopt magic_equal_subst
 
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完時に大文字小文字を区別しない
 
@@ -33,7 +34,6 @@ alias diff='colordiff'
 alias r='bundle exec rails'
 alias be='bundle exec'
 alias g="git"
-alias p='cd $(ghq list -p | peco)'
 alias ec='emacsclient -n'
 alias e='open -a /Applications/Emacs.app'
 
