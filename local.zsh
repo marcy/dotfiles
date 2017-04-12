@@ -48,6 +48,9 @@ eval "$(rbenv init - zsh)"
 
 eval "$(hub alias -s)"
 
+echo -ne "\033]0;$(pwd | rev | awk -F \/ '{print "/"$1"/"$2}'| rev)\007"
+function chpwd() { echo -ne "\033]0;$(pwd | rev | awk -F \/ '{print "/"$1"/"$2}'| rev)\007"}
+
 function do_enter() {
     if [ -n "$BUFFER" ]; then
         zle accept-line
