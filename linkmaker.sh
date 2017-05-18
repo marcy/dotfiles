@@ -8,5 +8,6 @@ ln -fs $(PWD)/dot.irbrc ~/.irbrc
 ln -fs $(PWD)/dot.my.cnf ~/.my.cnf
 ln -fs $(PWD)/dot.screenrc ~/.screenrc
 ln -fs $(PWD)/dot.tigrc ~/.tigrc
+ln -fs $(PWD)/dot.zshrc ~/.zshrc
 
 echo "done"
