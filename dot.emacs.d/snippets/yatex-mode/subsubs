@@ -1,4 +1,0 @@
-#name: subsubs
-# --
-\subsubsection{${1:name}}
-\label{headline:$1}

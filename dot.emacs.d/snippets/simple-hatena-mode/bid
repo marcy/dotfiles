@@ -1,3 +1,0 @@
-# name: b:id:hatena id
-# --
-b:id:${1:hatena id}$0

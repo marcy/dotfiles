@@ -1,3 +1,0 @@
-# name: [uke:ukulele code]
-# --
-[uke:${1:ukulele code}]$0

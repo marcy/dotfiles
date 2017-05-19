@@ -1,3 +1,0 @@
-# name: ((footnote))
-# --
-((${1:footnote}))$0

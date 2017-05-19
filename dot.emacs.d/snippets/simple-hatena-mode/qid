@@ -1,3 +1,0 @@
-# name: question:question id
-# --
-question:${1:question id}$0

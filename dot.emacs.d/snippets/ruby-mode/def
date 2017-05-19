@@ -1,5 +1,0 @@
-#name : def func ... end
-# --
-def ${name}
-  $0 
-end

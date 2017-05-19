@@ -1,5 +1,0 @@
-#name : each do |...| ... end
-# --
-each do |${e}|
-  $0 
-end

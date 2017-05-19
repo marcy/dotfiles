@@ -1,3 +1,0 @@
-# name: isbn:isbn:detail
-# --
-isbn:${1:isbn}:detail$0

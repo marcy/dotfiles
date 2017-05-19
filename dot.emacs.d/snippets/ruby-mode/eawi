@@ -1,3 +1,0 @@
-#name : each_with_index do |e, i| ... end
-# --
-each_with_index do |${e}, ${i}| $0 end

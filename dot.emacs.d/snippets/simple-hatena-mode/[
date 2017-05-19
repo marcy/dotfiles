@@ -1,3 +1,0 @@
-# name: [url:title]
-# --
-[${1:url}:title]$0

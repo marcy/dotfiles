@@ -1,3 +1,0 @@
-#name : detect do |...| ... end
-# --
-detect do |${e}| $0 end

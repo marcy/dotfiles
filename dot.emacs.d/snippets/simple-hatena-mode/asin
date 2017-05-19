@@ -1,4 +1,0 @@
-# name: asin:asin:detail
-# --
-asin:${1:asin}:detail
-$0

@@ -1,3 +1,0 @@
-#name : delete_if do |...| ... end
-# --
-delete_if do |${e} $0 end

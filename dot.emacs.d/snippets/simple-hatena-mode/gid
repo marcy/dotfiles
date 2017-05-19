@@ -1,3 +1,0 @@
-# name: g:group name:id:hatena id
-# --
-g:${1:group name}:${2:hatena id}$0

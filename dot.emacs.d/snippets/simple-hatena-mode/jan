@@ -1,3 +1,0 @@
-# name: jan:jan code
-# --
-jan:${1:jan code}$0

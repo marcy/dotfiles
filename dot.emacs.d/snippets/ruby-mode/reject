@@ -1,3 +1,0 @@
-#name : reject do |...| ... end
-# --
-reject do |${1:element}| $0 end

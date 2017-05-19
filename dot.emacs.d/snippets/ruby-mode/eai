@@ -1,3 +1,0 @@
-#name : each_index do |i| ... end
-# --
-each_index do |${i}| $0 end
