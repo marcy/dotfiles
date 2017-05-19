@@ -1,0 +1,3 @@
+#name : select do |...| ... end
+# --
+select do |${1:element}| $0 end

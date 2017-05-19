@@ -1,0 +1,4 @@
+#name : section
+# --
+\section{${1:name}}
+\label{headline:$1}

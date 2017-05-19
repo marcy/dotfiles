@@ -1,0 +1,7 @@
+#name : begin ... resucue ... end
+# --
+begin 
+  $0
+rescue $1
+  $2
+end

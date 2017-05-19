@@ -1,0 +1,3 @@
+#name : classify do |...| ... end
+# --
+classify do |${e}| $0 end

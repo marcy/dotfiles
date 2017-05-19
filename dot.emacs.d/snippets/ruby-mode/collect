@@ -1,0 +1,3 @@
+#name : collect do |...| ... end
+# --
+collect do |${e}| $0 end

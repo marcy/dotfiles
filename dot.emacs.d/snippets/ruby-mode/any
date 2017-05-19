@@ -1,0 +1,3 @@
+#name : any? do |...| ... end
+# --
+any? do |${e}| $0 end

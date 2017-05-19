@@ -1,0 +1,3 @@
+#name : zip(...) do |...| ... end
+# --
+zip(${enums}) do |${row}| $0 end
