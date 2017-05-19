@@ -3,3 +3,4 @@ config
 dot.ssh
 dot.zsh-history
 local
+dot.config/hub
