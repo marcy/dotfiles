@@ -25,10 +25,19 @@ alias g git
 
 eval (hub alias -s)
 
+function done_enter --on-event fish_postexec
+    if test -z "$argv"
+        ls
+        if git rev-parse --is-inside-work-tree ^/dev/null
+            echo (set_color yellow)"--- git status ---"(set_color normal)
+            git status -sb
+        end
+    end
+end
+
 function fish_user_key_bindings
   bind \c] peco_select_ghq_repository
   bind \ct peco_select_zsh_history
   bind \cr peco_select_history
-  bind \cj do_enter
   bind \co peco_bundle_open
 end
