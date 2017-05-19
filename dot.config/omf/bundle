@@ -1,0 +1,11 @@
+package brew
+package bundler
+package gem
+package https://github.com/yoshiori/fish-peco_select_ghq_repository
+package https://github.com/yoshiori/fish-peco_select_zsh_history
+package osx
+package pbcopy
+package peco
+package rbenv
+theme default
+theme yimmy
