@@ -2,6 +2,7 @@
 
 echo 'link maker start'
 
+ln -fns $(PWD)/dot.emacs.d ~/.emacs.d
 ln -fs $(PWD)/dot.gemrc ~/.gemrc
 ln -fs $(PWD)/dot.gitignore_global ~/.gitignore_global
 ln -fs $(PWD)/dot.irbrc ~/.irbrc

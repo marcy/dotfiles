@@ -10,5 +10,3 @@
                               nil
                             t))
   (message "%s" moccur-use-migemo))
-
-(load "moccur-edit")

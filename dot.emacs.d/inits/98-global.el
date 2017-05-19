@@ -1,9 +1,6 @@
-(load "sense-expand-region")
-
 (progn
   (bind-key "\C-ch" 'help-for-help)
   (bind-key "C-x C-c" 'server-edit)
-  (bind-key "C-=" 'sense-expand-region)
   (bind-key* "\C-h" 'delete-backward-char)
  )
 
