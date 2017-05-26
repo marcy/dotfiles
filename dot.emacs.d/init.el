@@ -1,15 +1,8 @@
-;; package system
 (require 'cask)
 (cask-initialize)
 
 (require 'pallet)
 (pallet-mode t)
-
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
-(package-initialize)
 
 ;; インストールされたパッケージが package-selected-package 変数に保持されるのを抑制する
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
@@ -26,6 +19,3 @@
     ;; show init time
     (message "init time: %.3f sec"
              (float-time (time-subtract after-init-time before-init-time)))))
-(put 'upcase-region 'disabled nil)
-(put 'downcase-region 'disabled nil)
-(put 'set-goal-column 'disabled nil)
