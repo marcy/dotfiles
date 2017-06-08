@@ -11,12 +11,16 @@ local function keyCode(key, mods, callback)
    end
 end
 
-local function remapKey(mods, key, keyCode)
-   hs.hotkey.bind(mods, key, keyCode, nil, keyCode)
+local function keyCodeSet(keys)
+   return function()
+      for i, keyEvent in ipairs(keys) do
+         keyEvent()
+      end
+   end
 end
 
-local function killLine()
-   return keyCode("right", {"cmd", "shift"}, keyCode("x", {"cmd"}))
+local function remapKey(mods, key, keyCode)
+   hs.hotkey.bind(mods, key, keyCode, nil, keyCode)
 end
 
 -- Mouse Keyboard Setting
@@ -63,9 +67,23 @@ local function switchHotKeys(enable)
    end
 end
 
+local disableApps = {"Emacs", "iTerm2", "ターミナル"}
+
+local function isDisableApp(name)
+   -- hs.alert.show(name)
+   for index = 1, #disableApps do
+      if disableApps[index] == name then
+         return true
+      end
+   end
+
+   return false
+end
+
+
 local function handleGlobalEvent(name, event, app)
    if event == hs.application.watcher.activated then
-      if name == "Emacs" or name == "iTerm2" or name == "ターミナル" then
+      if isDisableApp(name) then
          switchHotKeys(false)
       else
          switchHotKeys(true)
@@ -90,7 +108,19 @@ remapKey({"ctrl"}, "w", keyCode("x", {"cmd"}))
 remapKey({"ctrl"}, "y", keyCode("v", {"cmd"}))
 
 remapKey({"ctrl"}, "h", keyCode("delete"))
-remapKey({"ctrl"}, "k", killLine())
+remapKey({"ctrl"}, "k", keyCodeSet({
+         keyCode('right', {'cmd', 'shift'}),
+         keyCode('x', {'cmd'})
+}))
+
+remapKey({'ctrl'}, 's', keyCode('f', {'cmd'}))
+remapKey({'ctrl'}, '/', keyCode('z', {'cmd'}))
+remapKey({'ctrl'}, 'g', keyCode('escape'))
+
+remapKey({'ctrl'}, 'v', keyCode('pagedown'))
+remapKey({'alt'}, 'v', keyCode('pageup'))
+remapKey({'cmd', 'shift'}, ',', keyCode('home'))
+remapKey({'cmd', 'shift'}, '.', keyCode('end'))
 
 remapKey({'cmd', 'alt'}, 'h', mouseMoveToLeft)
 remapKey({'cmd', 'alt'}, 'j', mouseMoveToDown)
@@ -98,3 +128,35 @@ remapKey({'cmd', 'alt'}, 'k', mouseMoveToUp)
 remapKey({'cmd', 'alt'}, 'l', mouseMoveToRight)
 
 remapKey({'cmd', 'alt'}, 'v', mouseClickLeft)
+
+-- Cmd-q 2 回押しでアプリ終了する
+
+local quitModal = hs.hotkey.modal.new('cmd','q')
+
+function quitModal:entered()
+   hs.alert.show("Press Cmd+Q again to quit", 1)
+   hs.timer.doAfter(1, function() quitModal:exit() end)
+end
+
+local function killApp()
+   hs.console.printStyledtext('killApp')
+   hs.application.frontmostApplication():kill()
+   quitModal:exit()
+end
+
+quitModal:bind('cmd', 'q', killApp)
+quitModal:bind('', 'escape', function() quitModal:exit() end)
+
+-- Cmd-q 長押しでアプリ終了する
+
+--[[
+local qStartTime = 0.0
+local qDuration = 1.5
+hs.hotkey.bind({"cmd"}, "Q", function()
+    qStartTime = hs.timer.secondsSinceEpoch()
+end, function()
+    local qEndTime = hs.timer.secondsSinceEpoch()
+    local duration = qEndTime - qStartTime
+    if duration >= qDuration then hs.application.frontmostApplication():kill() end
+end)
+]]
