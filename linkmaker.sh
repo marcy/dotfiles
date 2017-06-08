@@ -4,6 +4,7 @@ echo 'link maker start'
 
 ln -fns $(PWD)/dot.config ~/.config
 ln -fns $(PWD)/dot.emacs.d ~/.emacs.d
+ln -fns $(PWD)/dot.hammerspoon ~/.hammerspoon
 
 ln -fs $(PWD)/dot.gemrc ~/.gemrc
 ln -fs $(PWD)/dot.gitconfig_global ~/.gitconfig_global
