@@ -4,3 +4,4 @@ dot.ssh
 dot.zsh-history
 local
 dot.config/hub
+dot.config/configstore/update-notifier-npm.json
