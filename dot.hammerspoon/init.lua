@@ -110,7 +110,8 @@ remapKey({"ctrl"}, "y", keyCode("v", {"cmd"}))
 remapKey({"ctrl"}, "h", keyCode("delete"))
 remapKey({"ctrl"}, "k", keyCodeSet({
          keyCode('right', {'cmd', 'shift'}),
-         keyCode('x', {'cmd'})
+         keyCode('x', {'cmd'}),
+         keyCode('forwarddelete')
 }))
 
 remapKey({'ctrl'}, 's', keyCode('f', {'cmd'}))
