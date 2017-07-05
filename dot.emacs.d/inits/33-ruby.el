@@ -59,9 +59,6 @@
 (eval-after-load 'rspec-mode
   '(rspec-install-snippets))
 
-(require 'rubocop)
-(add-hook 'ruby-mode-hook 'rubocop-mode)
-
 ;; flycheck
 (require 'flycheck)
 
