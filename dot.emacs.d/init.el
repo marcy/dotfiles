@@ -26,3 +26,4 @@
     ;; show init time
     (message "init time: %.3f sec"
              (float-time (time-subtract after-init-time before-init-time)))))
+(put 'downcase-region 'disabled nil)
