@@ -49,8 +49,8 @@ eval "$(rbenv init - zsh)"
 
 eval "$(hub alias -s)"
 
-#echo -ne "\033]0;$(pwd | rev | awk -F \/ '{print "/"$1"/"$2}'| rev)\007"
-#function chpwd() { echo -ne "\033]0;$(pwd | rev | awk -F \/ '{print "/"$1"/"$2}'| rev)\007"}
+echo -ne "\033]0;$(pwd | rev | awk -F \/ '{print "/"$1"/"$2}'| rev)\007"
+function chpwd() { echo -ne "\033]0;$(pwd | rev | awk -F \/ '{print "/"$1"/"$2}'| rev)\007"}
 
 function do_enter() {
     if [ -n "$BUFFER" ]; then
@@ -71,8 +71,8 @@ function do_enter() {
     zle reset-prompt
     return 0
 }
-#zle -N do_enter
-#bindkey '^m' do_enter
+zle -N do_enter
+bindkey '^m' do_enter
 
 # peco hitory
 function peco-select-history() {
