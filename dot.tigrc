@@ -4,3 +4,6 @@ set wrap-lines = yes
 
 bind main G !@hub browse -- commit/%(commit)
 bind diff G !@hub browse -- commit/%(commit)
+
+# 横分割に強制する
+set vertical-split = no
