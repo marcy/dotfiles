@@ -59,6 +59,7 @@
 (depends-on "mark-multiple")
 (depends-on "markdown-mode")
 (depends-on "marshal")
+(depends-on "migemo")
 (depends-on "multicolumn")
 (depends-on "open-junk-file")
 (depends-on "osx-dictionary")

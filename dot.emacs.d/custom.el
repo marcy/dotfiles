@@ -15,7 +15,7 @@
  '(init-loader-show-log-after-init (quote error-only))
  '(package-selected-packages
    (quote
-    (lua-mode package-build shut-up epl git commander f s helm-rb keyfreq color-theme-modern elpy py-autopep8 highlight-symbol mark-multiple expand-region bind-key company-go dash yaml-mode wgrep-ag web-mode smart-newline sequential-command scss-mode scratch-ext ruby-end ruby-block rubocop rspec-mode rinari popwin pallet osx-dictionary open-junk-file multicolumn markdown-mode magit js2-mode init-loader howm helm-projectile helm-ls-git helm-ghq helm-bundle-show helm-ag-r helm-ag haskell-mode haml-mode go-autocomplete gitignore-mode github-browse-file gitconfig-mode git-gutter git-gutter+ gh flycheck fish-mode exec-path-from-shell elscreen elixir-mode dumb-jump dired+ color-moccur coffee-mode auto-highlight-symbol anzu ag 2048-game)))
+    (migemo lua-mode package-build shut-up epl git commander f s helm-rb keyfreq color-theme-modern elpy py-autopep8 highlight-symbol mark-multiple expand-region bind-key company-go dash yaml-mode wgrep-ag web-mode smart-newline sequential-command scss-mode scratch-ext ruby-end ruby-block rubocop rspec-mode rinari popwin pallet osx-dictionary open-junk-file multicolumn markdown-mode magit js2-mode init-loader howm helm-projectile helm-ls-git helm-ghq helm-bundle-show helm-ag-r helm-ag haskell-mode haml-mode go-autocomplete gitignore-mode github-browse-file gitconfig-mode git-gutter git-gutter+ gh flycheck fish-mode exec-path-from-shell elscreen elixir-mode dumb-jump dired+ color-moccur coffee-mode auto-highlight-symbol anzu ag 2048-game)))
  '(ruby-insert-encoding-magic-comment nil)
  '(send-mail-function (quote smtpmail-send-it)))
 (custom-set-faces
