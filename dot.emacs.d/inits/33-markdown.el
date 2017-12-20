@@ -15,3 +15,6 @@
  '(markdown-header-face-6 ((t (:inherit outline-6 :weight bold))))
  '(markdown-pre-face ((t (:inherit org-formula))))
  )
+
+(if (executable-find "multimarkdown")
+    (setq markdown-command "multimarkdown"))
