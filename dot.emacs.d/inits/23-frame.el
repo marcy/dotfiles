@@ -56,3 +56,13 @@
 ;; color-theme-modern
 (load-theme 'dark-laptop t t)
 (enable-theme 'dark-laptop)
+
+;; EmacsにFocusが外れている際のFace
+(defun my-out-focused-mode-line()
+  (set-face-background 'mode-line "purple3"))
+;; EmacsにFocusが当たっている際のFace
+(defun my-in-focused-mode-line()
+  (set-face-background 'mode-line "white"))
+
+(add-hook 'focus-out-hook 'my-out-focused-mode-line)
+(add-hook 'focus-in-hook 'my-in-focused-mode-line)
