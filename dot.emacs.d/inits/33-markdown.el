@@ -16,5 +16,5 @@
  '(markdown-pre-face ((t (:inherit org-formula))))
  )
 
-(if (executable-find "multimarkdown")
-    (setq markdown-command "multimarkdown"))
+(if (executable-find "pandoc")
+    (setq markdown-command "pandoc -s --self-contained -t html5 -c ~/.pandoc/github-markdown.css"))
