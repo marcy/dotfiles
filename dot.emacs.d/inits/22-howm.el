@@ -1,3 +1,5 @@
+(setq howm-view-title-header "#")
+
 (require 'howm)
 (setq howm-menu-lang 'ja)
 (global-set-key "\C-c,," 'howm-menu)
