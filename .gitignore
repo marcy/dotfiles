@@ -6,3 +6,5 @@ local
 dot.config/hub
 dot.config/configstore/update-notifier-npm.json
 dot.config/joplin*
+dot.config/heroku
+dot.emacs.d/request
