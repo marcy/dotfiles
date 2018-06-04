@@ -8,6 +8,10 @@
     (set-scroll-bar-mode nil)  ; スクロールバーなし
     ))
 
+;; バッファの終わりをフリンジに表示
+(setq-default indicate-buffer-boundaries
+              '((top . nil) (bottom . right) (down . right)))
+
 ;; color
 (show-paren-mode t)                     ; 括弧に色
 (setq show-paren-style 'parenthesis)
