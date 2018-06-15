@@ -59,10 +59,10 @@
   (set-frame-parameter nil 'alpha '(90 75)))
 
 ;; color-theme-modern
-;(load-theme 'dark-laptop t t)
-;(enable-theme 'dark-laptop)
-(load-theme 'dracula t t)
-(enable-theme 'dracula)
+(load-theme 'dark-laptop t t)
+(enable-theme 'dark-laptop)
+;(load-theme 'dracula t t)
+;(enable-theme 'dracula)
 
 ;; EmacsにFocusが外れている際のFace
 (defun my-out-focused-mode-line()
