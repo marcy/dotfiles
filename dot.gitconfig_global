@@ -8,6 +8,7 @@
 	wd = diff --word-diff
 	lg = log --graph --pretty=oneline --decorate --date=short --abbrev-commit --branches
 	delete-merged-branches = !git branch --merged | grep -v \\* | grep -v "master$" | grep -v "develop$" | xargs -I % git branch -d %
+	push-f = push --force-with-lease
 [core]
 	editor=emacsclient
 [color]
