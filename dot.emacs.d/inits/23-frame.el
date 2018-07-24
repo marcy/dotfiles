@@ -59,8 +59,10 @@
   (set-frame-parameter nil 'alpha '(90 75)))
 
 ;; color-theme-modern
-(load-theme 'dark-laptop t t)
-(enable-theme 'dark-laptop)
+(load-theme 'ld-dark t t)
+(enable-theme 'ld-dark)
+;(load-theme 'dark-laptop t t)
+;(enable-theme 'dark-laptop)
 ;(load-theme 'dracula t t)
 ;(enable-theme 'dracula)
 
@@ -69,7 +71,7 @@
   (set-face-background 'mode-line "purple3"))
 ;; EmacsにFocusが当たっている際のFace
 (defun my-in-focused-mode-line()
-  (set-face-background 'mode-line "black"))
+  (set-face-background 'mode-line "white"))
 
 (add-hook 'focus-out-hook 'my-out-focused-mode-line)
 (add-hook 'focus-in-hook 'my-in-focused-mode-line)
