@@ -67,6 +67,11 @@ alias -g B='`git branch | peco | sed -e "s/^\*[ ]*//g"`'
 eval "$(rbenv init - zsh)"
 eval "$(hub alias -s)"
 
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
 function do_enter() {
     if [ -n "$BUFFER" ]; then
         zle accept-line
