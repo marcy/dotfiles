@@ -36,7 +36,8 @@ export LC_ALL=ja_JP.UTF-8
 export LC_CTYPE=C
 export EDITOR="emacs -nw -q"
 export GOPATH=$HOME
-export PATH=$HOME/.cabal/bin:$HOME/bin:/opt/local/bin:/usr/local/bin:/bin:/usr/local/sbin:/sbin:/usr/sbin:/usr/bin:/usr/X11R6/bin:$PATH:$JRUBY_HOME/bin:$HOME/Dropbox/bin:/usr/local/share/npm/bin:$GOPATH/bin:/usr/local/share/git-core/contrib/diff-highlight:/usr/local/opt/mysql@5.6/bin
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH=$PYENV_ROOT/bin:$HOME/.cabal/bin:$HOME/bin:/opt/local/bin:/usr/local/bin:/bin:/usr/local/sbin:/sbin:/usr/sbin:/usr/bin:/usr/X11R6/bin:$PATH:$JRUBY_HOME/bin:$HOME/Dropbox/bin:/usr/local/share/npm/bin:$GOPATH/bin:/usr/local/share/git-core/contrib/diff-highlight:/usr/local/opt/mysql@5.6/bin
 export BUNDLER_EDITOR="emacsclient -n"
 
 HISTFILE=$HOME/Dropbox/dotfiles/dot.zsh-history
@@ -67,9 +68,6 @@ alias -g B='`git branch | peco | sed -e "s/^\*[ ]*//g"`'
 eval "$(rbenv init - zsh)"
 eval "$(hub alias -s)"
 
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
 function do_enter() {
