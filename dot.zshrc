@@ -66,7 +66,7 @@ alias -g T='| tail'
 alias -g B='`git branch | peco | sed -e "s/^\*[ ]*//g"`'
 
 eval "$(rbenv init - zsh)"
-eval "$(hub alias -s)"
+#eval "$(hub alias -s)"
 
 eval "$(pyenv init -)"
 
