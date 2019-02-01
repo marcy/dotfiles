@@ -67,7 +67,7 @@ local function switchHotKeys(enable)
    end
 end
 
-local disableApps = {"Emacs", "iTerm2", "ターミナル", "RubyMine", "Inkdrop", "Boostnote"}
+local disableApps = {"Emacs", "iTerm2", "ターミナル", "RubyMine", "Inkdrop", "Boostnote", "Hyper"}
 
 local function isDisableApp(name)
    -- hs.alert.show(name)
