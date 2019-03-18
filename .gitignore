@@ -10,3 +10,4 @@ dot.config/heroku
 dot.emacs.d/request
 dot.config/yarn/
 dot.emacs.d/bookmarks
+dot.emacs.d/transient
