@@ -8,8 +8,6 @@
 (setq howm-directory "~/Dropbox/howm/")
 (setq howm-menu-recent-num 30)
 
-;; 済み(.)は表示しないように
-(setq howm-todo-menu-types "[-+~!]")
 (setq howm-file-name-format "%Y-%m-%d-%H%M%S.md")
 
 ;; 内容が 0 ならファイルごと消す
@@ -23,6 +21,7 @@
          (= (point-min) (point-max)))
     (delete-file
      (buffer-file-name (current-buffer)))))
+
 ;; RET でファイルを開く際, 一覧バッファを消す
 ;; C-u RET なら残る
 (setq howm-view-summary-persistent nil)
@@ -40,13 +39,6 @@
   '(progn
      (define-key howm-mode-map
        "\C-c\C-c" 'my-save-and-kill-buffer)))
-
-;; 保存時処理
-;; 保存時にパーミッションを"600"にする。
-;; (add-hook'howm-after-save-hook
-;;  (lambda ()
-;;    (let ((name (buffer-file-name)))
-;;         (set-file-modes name 384)))) ; 600
 
 (setq howm-keyword-file "~/Dropbox/tmp/dot.howm-keys")
 (setq howm-history-file "~/Dropbox/tmp/dot.howm-history")

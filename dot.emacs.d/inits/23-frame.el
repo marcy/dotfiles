@@ -52,9 +52,6 @@
 (when (eq window-system 'ns)
   (set-frame-parameter nil 'alpha '(95 75))) ; 透明に
 
-(load-theme 'dracula t t)
-(enable-theme 'dracula)
-
 ;; EmacsにFocusが外れている際のFace
 (defun my-out-focused-mode-line()
   (set-face-background 'mode-line "purple4"))
