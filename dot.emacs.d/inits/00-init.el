@@ -28,9 +28,6 @@
 ;; ファイル保存時に行末の空行消す
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;; バッファ自動再読み込み
-(global-auto-revert-mode 1)
-
 ;; yes or no
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -46,9 +43,6 @@
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 
-(column-number-mode 1)          ; カーソルの位置が何文字目かを表示する
-(line-number-mode 1)            ; カーソルの位置が何行目かを表示する
-
 (unless (eq window-system nil)
   (progn
     (menu-bar-mode nil)        ; メニューバーなし
@@ -59,23 +53,6 @@
 ;; バッファの終わりをフリンジに表示
 (setq-default indicate-buffer-boundaries
               '((top . nil) (bottom . right) (down . right)))
-
-;; color
-(show-paren-mode t)                     ; 括弧に色
-(setq show-paren-style 'parenthesis)
-(global-font-lock-mode t)               ; 字に色
-
-;;; リージョンの色
-(transient-mark-mode t)
-
-;;; 右端で折り返さない
-(setq truncate-lines nil)
-
-;; 分割したウィンドウでも右端で折り返さない
-(setq truncate-partial-width-windows nil)
-
-;; タブではなくスペースを使う
-(setq-default indent-tabs-mode nil)
 
 ;; Cocoa Emacsのフォントセットを定義
 (when (eq window-system 'ns)
@@ -111,16 +88,8 @@
 (add-hook 'focus-in-hook 'my-in-focused-mode-line)
 
 ;; scratch-ext
-(setq scratch-ext-log-directory "~/Dropbox/scratch/")
-
-;; junk-file
-(setq open-junk-file-format "~/Dropbox/junk/%Y/%m-%d-%H%M%S.")
+(require 'scratch-ext)
 
 ;; sequential-command-config
 (require 'sequential-command-config)
 (sequential-command-setup-keys)
-
-;; keyfreq-mode
-(setq keyfreq-file "~/Dropbox/dotfiles/local/emacs.keyfreq")
-(keyfreq-mode 1)
-(keyfreq-autosave-mode 1)
