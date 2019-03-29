@@ -1,7 +1,6 @@
 (setq cssm-indent-level 2)
 (setq cssm-indent-function #'cssm-c-style-indenter) ;; インデントをまともに
 
-(require 'scss-mode)
 (add-to-list 'auto-mode-alist '("\\.scss$" . scss-mode))
 
 (add-to-list 'auto-mode-alist '("\\.css$" . scss-mode))

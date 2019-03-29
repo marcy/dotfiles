@@ -1,4 +1,3 @@
-(require 'dumb-jump)
 ;; これをしないとホームディレクトリ以下が検索対象になる
 (setq dumb-jump-default-project "")
 ;; 日本語を含むパスだとgit grepがちゃんと動かない…

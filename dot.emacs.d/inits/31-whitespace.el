@@ -1,5 +1,3 @@
-(require 'whitespace)
-
 (setq whitespace-style '(face                   ; faceを使って視覚化する。
                          tabs                   ; 行末の空白を対象とする。
                          tab-mark

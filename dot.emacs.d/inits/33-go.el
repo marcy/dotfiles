@@ -1,7 +1,3 @@
-(require 'go-mode)
-(require 'company)
-(require 'company-go)
-
 (setq gofmt-command "goimports")
 
 (add-hook 'go-mode-hook 'company-mode)

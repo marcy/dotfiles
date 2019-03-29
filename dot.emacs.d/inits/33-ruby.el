@@ -1,6 +1,3 @@
-(custom-set-variables
- '(ruby-insert-encoding-magic-comment nil))
-
 (autoload 'ruby-mode "ruby-mode"
   "Mode for editing ruby source files" t)
 (setq auto-mode-alist
@@ -35,34 +32,30 @@
       (indent-line-to indent)
       (when (> offset 0) (forward-char offset)))))
 
-(require 'ruby-end)
 (add-hook 'ruby-mode-hook
   '(lambda ()
     (abbrev-mode 1)
+    (ruby-electric-mode t)
     (electric-pair-mode t)
     (electric-indent-mode t)
-    (electric-layout-mode t)))
+    (electric-layout-mode t)
+    (ruby-block-mode t)
+    (auto-highlight-symbol-mode t)
+    (flycheck-mode t)))
 
-(require 'ruby-block)
-(ruby-block-mode t)
+(setq ruby-electric-expand-delimiters-list nil)
+
 (setq ruby-block-highlight-toggle t)
 
 ;; シンボルをハイライト表示
-(require 'auto-highlight-symbol)
 (setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
 
 (global-set-key (kbd "") 'highlight-symbol-at-point)
 
-(add-hook 'ruby-mode-hook 'auto-highlight-symbol-mode)
-
-(require 'rspec-mode)
 (eval-after-load 'rspec-mode
   '(rspec-install-snippets))
 
-;; flycheck
 (require 'flycheck)
-
-(add-hook 'ruby-mode-hook 'flycheck-mode)
 (flycheck-define-checker ruby-rubocop
   "A Ruby syntax and style checker using the RuboCop tool.
 
