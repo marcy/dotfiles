@@ -1,4 +1,5 @@
 .cask
+.session
 ac-comphist.dat
 auto-save-list
 kill-ring-saved.el

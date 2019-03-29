@@ -2,16 +2,16 @@
 
 echo 'link maker start'
 
-ln -fns $(PWD)/dot.config ~/.config
-ln -fns $(PWD)/dot.emacs.d ~/.emacs.d
-ln -fns $(PWD)/dot.hammerspoon ~/.hammerspoon
+ln -fns $(PWD)/.config ~/.config
+ln -fns $(PWD)/.emacs.d ~/.emacs.d
+ln -fns $(PWD)/.hammerspoon ~/.hammerspoon
 
-ln -fs $(PWD)/dot.gemrc ~/.gemrc
-ln -fs $(PWD)/dot.gitconfig_global ~/.gitconfig_global
-ln -fs $(PWD)/dot.irbrc ~/.irbrc
-ln -fs $(PWD)/dot.my.cnf ~/.my.cnf
-ln -fs $(PWD)/dot.screenrc ~/.screenrc
-ln -fs $(PWD)/dot.tigrc ~/.tigrc
-ln -fs $(PWD)/dot.zshrc ~/.zshrc
+ln -fs $(PWD)/.gemrc ~/.gemrc
+ln -fs $(PWD)/.gitconfig_global ~/.gitconfig_global
+ln -fs $(PWD)/.irbrc ~/.irbrc
+ln -fs $(PWD)/.my.cnf ~/.my.cnf
+ln -fs $(PWD)/.screenrc ~/.screenrc
+ln -fs $(PWD)/.tigrc ~/.tigrc
+ln -fs $(PWD)/.zshrc ~/.zshrc
 
 echo "done"
