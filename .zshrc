@@ -40,7 +40,7 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH=$PYENV_ROOT/bin:$HOME/.cabal/bin:$HOME/bin:/opt/local/bin:/usr/local/bin:/bin:/usr/local/sbin:/sbin:/usr/sbin:/usr/bin:/usr/X11R6/bin:$PATH:$JRUBY_HOME/bin:$HOME/Dropbox/bin:/usr/local/share/npm/bin:$GOPATH/bin:/usr/local/share/git-core/contrib/diff-highlight:/usr/local/opt/mysql@5.6/bin
 export BUNDLER_EDITOR="emacsclient -n"
 
-HISTFILE=$HOME/Dropbox/dotfiles/dot.zsh-history
+HISTFILE=$HOME/Dropbox/dotfiles/.zsh-history
 HISTSIZE=10000
 SAVEHIST=100000
 
