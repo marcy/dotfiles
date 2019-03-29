@@ -1,9 +1,6 @@
-(package-initialize)
-
 (require 'cask)
 (cask-initialize)
 
-(require 'pallet)
 (pallet-mode t)
 
 (custom-set-variables
@@ -50,11 +47,10 @@
  '(elscreen-tab-current-screen-face ((t (:background "gray75" :foreground "black"))))
  '(elscreen-tab-other-screen-face ((t (:background "gray30" :foreground "gray80")))))
 
-;;;;; init loader
-(require 'init-loader)
+;; init loader
 (init-loader-load "~/.emacs.d/inits")
 
-;;;;; after init
+;; after init
 (add-hook 'after-init-hook
   (lambda ()
     ;; show init time

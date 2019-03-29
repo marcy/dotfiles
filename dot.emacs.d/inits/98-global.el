@@ -1,6 +1,4 @@
-;; ファイル保存時に行末の空行消す
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
+;; key bindings
 (bind-key "C-c h" 'help-for-help)
 (bind-key "C-x C-c" 'server-edit)
 (bind-key "C-h" 'delete-backward-char)
@@ -27,10 +25,4 @@
 (bind-key "C-x f" 'helm-ls-git-ls)
 (bind-key "C-x p" 'helm-ghq)
 (bind-key "C-x y" 'helm-bundle-show)
-(bind-key "RET" 'smart-newline)
-
-;; バッファ自動再読み込み
-(global-auto-revert-mode 1)
-
-;; yes or no
-(defalias 'yes-or-no-p 'y-or-n-p)
+;(bind-key "RET" 'smart-newline)
