@@ -1,3 +1,3 @@
-(recentf-mode)
-(setq recentf-max-menu-items 200)
-(setq recentf-max-saved-items 3000)
+(custom-set-variables '(recentf-mode t))
+(custom-set-variables '(recentf-max-menu-items 200))
+(custom-set-variables '(recentf-max-saved-items 3000))
