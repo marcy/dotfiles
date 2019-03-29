@@ -1,7 +1,6 @@
 (defvar howm-view-title-header "#")
 
 (setq howm-menu-lang 'ja)
-(global-set-key "\C-c,," 'howm-menu)
 (autoload 'howm-menu "howm" "Hitori Otegaru Wiki Modoki" t)
 
 (setq howm-directory "~/Dropbox/howm/")

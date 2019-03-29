@@ -50,8 +50,6 @@
 ;; シンボルをハイライト表示
 (setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
 
-(global-set-key (kbd "") 'highlight-symbol-at-point)
-
 (eval-after-load 'rspec-mode
   '(rspec-install-snippets))
 
