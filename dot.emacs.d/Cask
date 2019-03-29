@@ -2,6 +2,7 @@
 
 (depends-on "2048-game")
 (depends-on "ag")
+(depends-on "all-the-icons-dired")
 (depends-on "anzu")
 (depends-on "apib-mode")
 (depends-on "async")

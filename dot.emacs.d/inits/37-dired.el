@@ -4,3 +4,5 @@
 
 ; シマシマにする
 ; (add-hook 'dired-mode-hook 'stripe-listify-buffer)
+
+(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
