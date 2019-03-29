@@ -87,6 +87,7 @@
 (depends-on "scss-mode")
 (depends-on "seq")
 (depends-on "sequential-command")
+(depends-on "session")
 (depends-on "smart-newline")
 (depends-on "transient")
 (depends-on "twittering-mode")
