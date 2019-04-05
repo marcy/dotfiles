@@ -34,6 +34,7 @@
 
 (add-hook 'ruby-mode-hook
   '(lambda ()
+    (rspec-mode)
     (abbrev-mode 1)
     (ruby-electric-mode t)
     (electric-pair-mode t)

@@ -3,6 +3,9 @@
 (setq howm-menu-lang 'ja)
 (autoload 'howm-menu "howm" "Hitori Otegaru Wiki Modoki" t)
 
+(global-unset-key (kbd "C-x ,"))
+(setq howm-prefix (kbd "C-x ,"))
+
 (setq howm-directory "~/Dropbox/howm/")
 (setq howm-menu-recent-num 30)
 

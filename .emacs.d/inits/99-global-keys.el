@@ -12,7 +12,7 @@
 (bind-key "C-M-i" 'company-complete)
 ;(bind-key "" 'highlight-symbol-at-point)
 (bind-key "C-c C-r" 'window-resizer)
-(bind-key "C-c , ," 'howm-menu)
+(bind-key "C-x , ," 'howm-menu)
 (bind-key "C-x g" 'ag)
 (bind-key "C-;" 'helm-mini)
 (bind-key "C-:" 'helm-projectile)
