@@ -54,7 +54,6 @@
 (depends-on "helm-rb")
 (depends-on "highlight-indentation")
 (depends-on "highlight-symbol")
-(depends-on "howm")
 (depends-on "ht")
 (depends-on "init-loader")
 (depends-on "ivy")
