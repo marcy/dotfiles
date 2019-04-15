@@ -49,7 +49,7 @@ function history-all { \history -E 1 }
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
-alias ls='ls -Fv'
+alias ls='ls -FGv'
 alias peco='peco --layout=bottom-up'
 alias diff='colordiff'
 alias r='bundle exec rails'
