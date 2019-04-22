@@ -9,24 +9,22 @@
 (setq-default indicate-buffer-boundaries
               '((top . nil) (bottom . right) (down . right)))
 
-;; Cocoa Emacsのフォントセットを定義
+;; font
 (when (eq window-system 'ns)
   (create-fontset-from-ascii-font
-   "Menlo-12:weight=normal:slant=normal"
+   "Ricty Diminished-16:weight=normal:slant=normal"
    nil
-   "menlokakugo")
+   "ricty_diminished")
   (set-fontset-font
-   "fontset-menlokakugo"
+   "fontset-ricty_diminished"
    'unicode
-   (font-spec :family "Hiragino Kaku Gothic ProN" :size 12)
+   (font-spec :family "Ricty Diminished" :weight 'normal :slant 'normal)
    nil
    'append)
-  (add-to-list 'default-frame-alist '(font . "fontset-menlokakugo"))
-  (add-to-list 'initial-frame-alist '(font . "fontset-menlokakugo"))
-  (add-to-list 'face-font-rescale-alist
-               '(".*Hiragino Kaku Gothic ProN.*" . 1.2))
-  (add-hook 'after-init-hook
-            (lambda () (set-frame-font "fontset-menlokakugo"))))
+  (add-to-list 'default-frame-alist
+               '(font . "fontset-ricty_diminished"))
+  (add-to-list 'initial-frame-alist
+               '(font . "fontset-ricty_diminished")))
 
 (when (eq window-system 'ns)
   (set-frame-parameter nil 'alpha '(95 75))) ; 透明に
