@@ -101,7 +101,7 @@ remapKey({"ctrl"}, "n", keyCode("down"))
 remapKey({"ctrl"}, "f", keyCode("right"))
 remapKey({"ctrl"}, "b", keyCode("left"))
 
-remapKey({"ctrl"}, "m", keyCode("return"))
+-- remapKey({"ctrl"}, "m", keyCode("return"))
 remapKey({"ctrl"}, "j", keyCode("return"))
 
 remapKey({"ctrl"}, "w", keyCode("x", {"cmd"}))
