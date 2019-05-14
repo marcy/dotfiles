@@ -1,3 +1,4 @@
+(source gnu)
 (source melpa)
 
 (depends-on "2048-game")
@@ -21,6 +22,7 @@
 (depends-on "doom-themes")
 (depends-on "dracula-theme")
 (depends-on "dumb-jump")
+(depends-on "eglot")
 (depends-on "elixir-mode")
 (depends-on "elpy")
 (depends-on "elscreen")
@@ -90,6 +92,7 @@
 (depends-on "seq")
 (depends-on "sequential-command")
 (depends-on "session")
+(depends-on "smart-jump")
 (depends-on "smart-newline")
 (depends-on "transient")
 (depends-on "twittering-mode")

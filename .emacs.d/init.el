@@ -3,6 +3,10 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
+(require 'package)
+
+(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
+
 (package-initialize)
 
 (require 'cask "/usr/local/opt/cask/cask.el")
@@ -44,7 +48,7 @@
  '(open-junk-file-format "~/Dropbox/junk/%Y/%m-%d-%H%M%S." t)
  '(package-selected-packages
    (quote
-    (poly-erb poly-markdown session ruby-electric all-the-icons-dired neotree doom-themes which-key web-mode magit color-identifiers-mode google-translate twittering-mode dracula-theme apib-mode migemo lua-mode package-build shut-up epl git commander f s helm-rb keyfreq color-theme-modern elpy py-autopep8 highlight-symbol mark-multiple expand-region bind-key company-go dash yaml-mode wgrep-ag smart-newline sequential-command scss-mode scratch-ext ruby-end ruby-block rubocop rspec-mode rinari pallet osx-dictionary open-junk-file multicolumn markdown-mode js2-mode init-loader helm-projectile helm-ls-git helm-ghq helm-bundle-show helm-ag-r helm-ag haskell-mode haml-mode go-autocomplete gitignore-mode github-browse-file gitconfig-mode git-gutter git-gutter+ gh flycheck fish-mode exec-path-from-shell elscreen elixir-mode dumb-jump dired+ color-moccur coffee-mode auto-highlight-symbol anzu ag 2048-game)))
+    (smart-jump lsp-ruby eglot poly-erb poly-markdown session ruby-electric all-the-icons-dired neotree doom-themes which-key web-mode magit color-identifiers-mode google-translate twittering-mode dracula-theme apib-mode migemo lua-mode package-build shut-up epl git commander f s helm-rb keyfreq color-theme-modern elpy py-autopep8 highlight-symbol mark-multiple expand-region bind-key company-go dash yaml-mode wgrep-ag smart-newline sequential-command scss-mode scratch-ext ruby-end ruby-block rubocop rspec-mode rinari pallet osx-dictionary open-junk-file multicolumn markdown-mode js2-mode init-loader helm-projectile helm-ls-git helm-ghq helm-bundle-show helm-ag-r helm-ag haskell-mode haml-mode go-autocomplete gitignore-mode github-browse-file gitconfig-mode git-gutter git-gutter+ gh flycheck fish-mode exec-path-from-shell elscreen elixir-mode dumb-jump dired+ color-moccur coffee-mode auto-highlight-symbol anzu ag 2048-game)))
  '(recentf-max-menu-items 200)
  '(recentf-max-saved-items 3000)
  '(recentf-mode t)
