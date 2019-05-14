@@ -8,7 +8,6 @@
 (bind-key "C-@" 'mark-word)
 (bind-key "C-x l" 'goto-line)
 (bind-key "C-x j" 'open-junk-file)
-(bind-key "C-q" 'neotree-toggle)
 (bind-key "C-M-i" 'company-complete)
 ;(bind-key "" 'highlight-symbol-at-point)
 (bind-key "C-x g" 'ag)
