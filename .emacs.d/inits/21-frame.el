@@ -12,7 +12,7 @@
 ;; font
 (when (eq window-system 'ns)
   (create-fontset-from-ascii-font
-   "Ricty Diminished-16:weight=normal:slant=normal"
+   "Ricty Diminished-14:weight=normal:slant=normal"
    nil
    "ricty_diminished")
   (set-fontset-font
