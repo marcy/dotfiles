@@ -39,6 +39,7 @@ export GOPATH=$HOME
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH=$PYENV_ROOT/bin:$HOME/.cabal/bin:$HOME/bin:/opt/local/bin:/usr/local/bin:/bin:/usr/local/sbin:/sbin:/usr/sbin:/usr/bin:/usr/X11R6/bin:$PATH:$JRUBY_HOME/bin:$HOME/Dropbox/bin:/usr/local/share/npm/bin:$GOPATH/bin:/usr/local/share/git-core/contrib/diff-highlight:/usr/local/opt/mysql@5.6/bin
 export BUNDLER_EDITOR="emacsclient -n"
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
 HISTFILE=$HOME/Dropbox/dotfiles/.zsh-history
 HISTSIZE=10000
@@ -50,7 +51,6 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 alias ls='ls -FGv'
-alias peco='peco --layout=bottom-up'
 alias diff='colordiff'
 alias r='bundle exec rails'
 alias be='bundle exec'
@@ -63,7 +63,7 @@ alias -g G='| grep'
 alias -g L='| lv -c'
 alias -g H='| head'
 alias -g T='| tail'
-alias -g B='`git branch | peco | sed -e "s/^\*[ ]*//g"`'
+alias -g B='`git branch | fzf | sed -e "s/^\*[ ]*//g"`'
 
 eval "$(rbenv init - zsh)"
 eval "$(hub alias -s)"
@@ -90,39 +90,31 @@ function do_enter() {
 zle -N do_enter
 bindkey '^m' do_enter
 
-# peco hitory
-function peco-select-history() {
-    local tac
-    if which tac > /dev/null; then
-        tac="tac"
-    else
-        tac="tail -r"
-    fi
-    BUFFER=$(\history -n 1 | \
-        eval $tac | \
-        peco --query "$LBUFFER")
-    CURSOR=$#BUFFER
-    #zle clear-screen
+# fzf hitory
+function select-history() {
+  BUFFER=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER" --prompt="History > ")
+  CURSOR=$#BUFFER
+  zle reset-prompt
 }
-zle -N peco-select-history
-bindkey '^r' peco-select-history
+zle -N select-history
+bindkey '^r' select-history
 
-# peco git-project
-function peco-cd-git-project() {
-    cd $(ghq list -p | peco)
+# fzf git-project
+function cd-git-project() {
+    cd $(ghq list -p | fzf)
     zle accept-line
 }
-zle -N peco-cd-git-project
-bindkey '^]' peco-cd-git-project
+zle -N cd-git-project
+bindkey '^]' cd-git-project
 
-# peco bundle open
-function peco-bundle-open() {
-    local selected=$(bundle show 2> /dev/null | sed -e '/^  \*/!d; s/^  \* \([^ ]*\) .*/\1/' | peco --query "$LBUFFER")
+# fzf bundle open
+function bundle-open() {
+    local selected=$(bundle show 2> /dev/null | sed -e '/^  \*/!d; s/^  \* \([^ ]*\) .*/\1/' | fzf --query "$LBUFFER")
     if [ -n "$selected" ]; then
         BUFFER="bundle open ${selected}"
         zle accept-line
     fi
     #zle clear-screen
 }
-zle -N peco-bundle-open
-bindkey '^o' peco-bundle-open
+zle -N bundle-open
+bindkey '^o' bundle-open
