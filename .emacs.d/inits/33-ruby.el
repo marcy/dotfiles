@@ -32,6 +32,8 @@
       (indent-line-to indent)
       (when (> offset 0) (forward-char offset)))))
 
+(require 'ruby-block)
+
 (add-hook 'ruby-mode-hook
   '(lambda ()
     (rspec-mode)
