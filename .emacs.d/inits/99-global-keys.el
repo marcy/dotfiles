@@ -2,8 +2,8 @@
 (bind-key "C-c h" 'help-for-help)
 (bind-key "C-x C-c" 'server-edit)
 (bind-key "C-h" 'delete-backward-char)
-(bind-key "C-c ;" 'comment-region)      ; コメントアウト
-(bind-key "C-c :" 'uncomment-region)    ; コメント解除
+;(bind-key "C-c ;" 'comment-region)      ; コメントアウト
+;(bind-key "C-c :" 'uncomment-region)    ; コメント解除
 (bind-key "C-c C-u" 'universal-argument)
 (bind-key "C-@" 'mark-word)
 (bind-key "C-x l" 'goto-line)
@@ -12,14 +12,14 @@
 ;(bind-key "" 'highlight-symbol-at-point)
 (bind-key "C-x g" 'ag)
 (bind-key "C-;" 'helm-mini)
-(bind-key "C-:" 'helm-projectile)
-(bind-key "M-x" 'helm-M-x)
-(bind-key "C-x C-f" 'helm-find-files)
-(bind-key "C-x C-r" 'helm-recentf)
-(bind-key "M-y" 'helm-show-kill-ring)
-(bind-key "C-c i" 'helm-imenu)
-(bind-key "C-x b" 'helm-buffers-list)
-(bind-key "C-x f" 'helm-ls-git-ls)
+(bind-key "C-:" 'counsel-projectile)
+(bind-key "M-x" 'counsel-M-x)
+(bind-key "C-x C-f" 'counsel-find-file)
+(bind-key "C-x C-r" 'counsel-recentf)
+(bind-key "M-y" 'counsel-yank-pop)
+;(bind-key "C-c i" 'helm-imenu)
+(bind-key "C-x b" 'counsel-ibuffer)
+;(bind-key "C-x f" 'helm-ls-git-ls)
 (bind-key "C-x p" 'helm-ghq)
 (bind-key "C-x y" 'helm-bundle-show)
 ;(bind-key "RET" 'smart-newline)
