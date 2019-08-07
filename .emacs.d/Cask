@@ -100,6 +100,7 @@
 (depends-on "session")
 (depends-on "smart-jump")
 (depends-on "smart-newline")
+(depends-on "smex")
 (depends-on "transient")
 (depends-on "twittering-mode")
 (depends-on "web-mode")

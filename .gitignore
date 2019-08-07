@@ -11,3 +11,4 @@ local
 .config/yarn/
 .emacs.d/bookmarks
 .emacs.d/transient
+.emacs.d/smex-items
