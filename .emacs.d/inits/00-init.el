@@ -35,6 +35,9 @@
 (when (require 'package nil t)
   (package-initialize))
 
+;; dash
+(require 'dash)
+
 ;; elscreen
 (elscreen-start)
 (elscreen-set-prefix-key "\C-t")
