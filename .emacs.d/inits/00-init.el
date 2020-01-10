@@ -52,3 +52,8 @@
 ;; sequential-command-config
 (require 'sequential-command-config)
 (sequential-command-setup-keys)
+
+(use-package auto-sudoedit
+  :ensure t
+  :config
+  (auto-sudoedit-mode 1))
