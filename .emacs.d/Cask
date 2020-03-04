@@ -46,6 +46,7 @@
 (depends-on "google-translate")
 (depends-on "haml-mode")
 (depends-on "haskell-mode")
+(depends-on "hcl-mode")
 (depends-on "helm")
 (depends-on "helm-ag")
 (depends-on "helm-ag-r")
