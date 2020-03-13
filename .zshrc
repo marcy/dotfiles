@@ -46,17 +46,20 @@ SAVEHIST=100000
 
 function history-all { \history -E 1 }
 
-alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
-alias ls='ls -FGv'
-alias peco='peco --layout=bottom-up'
-alias diff='colordiff'
-alias r='bundle exec rails'
 alias be='bundle exec'
-alias g="git"
-alias ec='emacsclient -n'
+alias cp='cp -i'
+alias diff='colordiff'
+alias du='dust'
 alias e='open -a /Applications/Emacs.app'
+alias ec='emacsclient -n'
+alias g="git"
+alias ls='exa'
+#alias ls='ls -FGv'
+alias mv='mv -i'
+alias peco='peco --layout=bottom-up'
+alias ps='procs'
+alias r='bundle exec rails'
+alias rm='rm -i'
 
 # グローバルエイリアス
 alias -g G='| grep'
