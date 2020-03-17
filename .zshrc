@@ -68,10 +68,9 @@ alias -g H='| head'
 alias -g T='| tail'
 alias -g B='`git branch | peco | sed -e "s/^\*[ ]*//g"`'
 
-eval "$(rbenv init - zsh)"
 eval "$(hub alias -s)"
-
 eval "$(pyenv init -)"
+eval "$(rbenv init - zsh)"
 
 function do_enter() {
     if [ -n "$BUFFER" ]; then
