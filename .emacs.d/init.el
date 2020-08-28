@@ -85,13 +85,6 @@
   :added "2020-08-28"
   :ensure t)
 
-(leaf autorevert
-  :doc "revert buffers when files on disk change"
-  :tag "builtin"
-  :custom ((auto-revert-interval . 0.3)
-           (auto-revert-check-vc-info . t))
-  :global-minor-mode global-auto-revert-mode)
-
 (leaf delsel
   :doc "delete selection if you insert"
   :tag "builtin"
@@ -127,7 +120,6 @@
   (when (memq window-system '(mac ns))
     (exec-path-from-shell-initialize)))
 
-;; scratch-ext
 (leaf scratch-ext
   :doc "Extensions for *scratch*"
   :added "2020-08-28"
