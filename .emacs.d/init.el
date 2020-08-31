@@ -212,19 +212,63 @@
   :added "2020-08-28"
   :url "https://emacs-helm.github.io/helm/"
   :emacs>= 25.1
+  :require t
   :ensure t
-  :after helm-core
-  :bind ((helm-map
-          ("C-h" . delete-backward-char))
-         (helm-find-files-map
-          ("C-h" . delete-backward-char))
-         (helm-find-files-map
-          ("TAB" . helm-execute-persistent-action))
-         (helm-read-file-map
-          ("TAB" . helm-execute-persistent-action)))
+  :init
+  (leaf helm-config
+    :doc "Applications library for `helm.el'"
+    :tag "out-of-MELPA"
+    :added "2020-08-31"
+    :require t)
+  (leaf helm-ghq
+    :doc "Ghq with helm interface"
+    :req "emacs-24" "helm-2.2.0"
+    :tag "emacs>=24"
+    :added "2020-08-28"
+    :url "https://github.com/masutaka/emacs-helm-ghq"
+    :emacs>= 24
+    :ensure t
+    :bind
+    (("C-x p" . helm-ghq)))
+  (leaf helm-projectile
+    :doc "Helm integration for Projectile"
+    :req "helm-1.9.9" "projectile-2.2.0" "cl-lib-0.3"
+    :tag "convenience" "project"
+    :added "2020-08-31"
+    :url "https://github.com/bbatsov/helm-projectile"
+    :ensure t
+    :bind (("C-:" . helm-projectile))
+    :config
+    (helm-projectile-on))
+  (leaf helm-bundle-show
+    :doc "Bundle show with helm interface"
+    :req "emacs-24" "helm-1.8.0"
+    :tag "emacs>=24"
+    :added "2020-08-31"
+    :url "https://github.com/masutaka/emacs-helm-bundle-show"
+    :emacs>= 24
+    :ensure t
+    :bind (("C-x y" . helm-bundle-show))
+    :after helm)
+  (leaf helm-ag
+    :doc "The silver searcher with helm interface"
+    :req "emacs-25.1" "helm-2.0"
+    :tag "emacs>=25.1"
+    :added "2020-08-31"
+    :url "https://github.com/syohex/emacs-helm-ag"
+    :emacs>= 25.1
+    :ensure t
+    :after helm
+    :bind (("C-x C-g" . helm-ag)))
+  :bind (("C-;" . helm-mini)
+         ("C-x b" . helm-buffers-list)
+         ("M-x" . helm-M-x)
+         ("M-y" . helm-show-kill-ring)
+         ("C-x C-f" . helm-find-files)
+         (helm-map
+          ("C-h" . delete-backward-char)))
   :config
-  (helm-mode 1)
-
+  (helm-mode t)
   ;; Disable helm in some functions
   (add-to-list 'helm-completing-read-handlers-alist '(find-alternate-file . nil))
 
@@ -252,17 +296,6 @@
                         ;; and not required because the directory name is prepended
                         (substring input-pattern 1)
                       (concat ".*" input-pattern)))))))
-
-(leaf helm-ghq
-  :doc "Ghq with helm interface"
-  :req "emacs-24" "helm-2.2.0"
-  :tag "emacs>=24"
-  :added "2020-08-28"
-  :url "https://github.com/masutaka/emacs-helm-ghq"
-  :emacs>= 24
-  :ensure t
-  :bind (("C-x p" . helm-ghq))
-  :after helm)
 
 (leaf session
   :doc "use variables, registers and buffer places across sessions"
@@ -537,6 +570,7 @@ See URL `http://batsov.com/rubocop/'."
   :tag "tools" "convenience"
   :added "2020-08-28"
   :url "http://www.emacswiki.org/cgi-bin/wiki/download/open-junk-file.el"
+  :bind (("C-x j" . open-junk-file))
   :ensure t)
 
 (leaf web-mode
@@ -593,9 +627,27 @@ See URL `http://batsov.com/rubocop/'."
   :url "https://github.com/domtronn/all-the-icons.el"
   :emacs>= 24.3
   :ensure t
-  :after memoize
+  :after memoize)
+
+(leaf all-the-icons-dired
+  :doc "Shows icons for each file in dired mode"
+  :req "emacs-24.4" "all-the-icons-2.2.0"
+  :tag "dired" "icons" "files" "emacs>=24.4"
+  :added "2020-08-28"
+  :url "https://github.com/jtbm37/all-the-icons-dired"
+  :emacs>= 24.4
+  :ensure t
+  :after all-the-icons
   :config
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+
+(leaf yaml-mode
+  :doc "Major mode for editing YAML files"
+  :req "emacs-24.1"
+  :tag "yaml" "data" "emacs>=24.1"
+  :added "2020-08-31"
+  :emacs>= 24.1
+  :ensure t)
 
 (leaf make-file-executable
   :preface
@@ -655,28 +707,11 @@ See URL `http://batsov.com/rubocop/'."
     (migemo-init))
   )
 
-(leaf bind-key
-  :doc "A simple way to manage personal keybindings"
-  :tag "dotemacs" "config" "keybinding" "keys"
-  :added "2020-08-28"
-  :url "https://github.com/jwiegley/use-package"
-  :ensure t
-  :config
-  (bind-key "C-c h" 'help-for-help)
-  (bind-key "C-x C-c" 'server-edit)
-  (bind-key "C-h" 'delete-backward-char)
-  (bind-key "C-@" 'mark-word)
-  (bind-key "C-x l" 'goto-line)
-  (bind-key "C-x j" 'open-junk-file)
-  (bind-key "C-x C-g" 'ag)
-  (bind-key "C-;" 'helm-mini)
-  (bind-key "C-:" 'helm-projectile)
-  (bind-key "M-x" 'helm-M-x)
-  (bind-key "C-x C-f" 'helm-find-files)
-  (bind-key "M-y" 'helm-show-kill-ring)
-  (bind-key "C-x b" 'helm-buffers-list)
-                                        ;(bind-key "C-x p" 'helm-ghq)
-  (bind-key "C-x y" 'helm-bundle-show))
+(leaf-keys (("C-c h" . help-for-help)
+            ("C-x C-c" . server-edit)
+            ("C-h" . delete-backward-char)
+            ("C-@" . mark-word)
+            ("C-x l" . goto-line)))
 
 (leaf leaf
   :config
