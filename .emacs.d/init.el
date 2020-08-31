@@ -104,6 +104,18 @@
   :url "https://github.com/knu/elscreen"
   :emacs>= 24
   :ensure t
+  :custom-face ((elscreen-tab-background-face quote
+                                              ((t
+                                                (:background "gray10"))))
+                (elscreen-tab-control-face quote
+                                           ((t
+                                             (:background "gray10" :foreground "gray60"))))
+                (elscreen-tab-current-screen-face quote
+                                                  ((t
+                                                    (:background "gray75" :foreground "black"))))
+                (elscreen-tab-other-screen-face quote
+                                                ((t
+                                                  (:background "gray30" :foreground "gray80")))))
   :config
   (elscreen-start)
   (elscreen-set-prefix-key "\C-t"))
@@ -125,6 +137,9 @@
   :added "2020-08-28"
   :url "https://github.com/kyanagi/scratch-ext-el"
   :ensure t
+  :setq
+  ((scratch-ext-log-directory . "~/Dropbox/junk/")
+   (scratch-ext-log-name-format . "%Y/%m-%d-%H%M%S.scratch.txt"))
   :require t)
 
 (leaf sequential-command
@@ -579,7 +594,8 @@ See URL `http://batsov.com/rubocop/'."
   :added "2020-08-28"
   :url "http://www.emacswiki.org/cgi-bin/wiki/download/open-junk-file.el"
   :bind (("C-x j" . open-junk-file))
-  :ensure t)
+  :ensure t
+  :setq ((open-junk-file-directory . "~/Dropbox/junk/%Y/%m-%d-%H%M%S.")))
 
 (leaf web-mode
   :doc "major mode for editing web templates"
@@ -764,7 +780,6 @@ See URL `http://batsov.com/rubocop/'."
  '(line-number-mode 1)
  '(neo-show-hidden-files t)
  '(neo-theme 'icons)
- '(open-junk-file-directory "~/Dropbox/junk/%Y/%m-%d-%H%M%S." t)
  '(package-archives
    '(("org" . "https://orgmode.org/elpa/")
      ("melpa" . "https://melpa.org/packages/")
@@ -775,8 +790,6 @@ See URL `http://batsov.com/rubocop/'."
  '(recentf-max-saved-items 3000)
  '(recentf-mode t)
  '(ruby-insert-encoding-magic-comment nil)
- '(scratch-ext-log-directory "~/Dropbox/junk/")
- '(scratch-ext-log-name-format "%Y/%m-%d-%H%M%S.scratch.txt")
  '(send-mail-function 'smtpmail-send-it)
  '(show-paren-mode t)
  '(show-paren-style 'parenthesis)
@@ -785,13 +798,3 @@ See URL `http://batsov.com/rubocop/'."
  '(truncate-partial-width-windows nil)
  '(which-key-mode t)
  '(which-key-setup-side-window-right t))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(elscreen-tab-background-face ((t (:background "gray10"))))
- '(elscreen-tab-control-face ((t (:background "gray10" :foreground "gray60"))))
- '(elscreen-tab-current-screen-face ((t (:background "gray75" :foreground "black"))))
- '(elscreen-tab-other-screen-face ((t (:background "gray30" :foreground "gray80")))))
