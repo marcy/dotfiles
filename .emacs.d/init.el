@@ -477,6 +477,19 @@
   :doc "Major mode for editing Ruby files"
   :tag "builtin"
   :added "2020-08-28"
+  :init
+  (leaf ruby-block
+    :tag "out-of-MELPA"
+    :added "2020-08-28"
+    :el-get juszczakn/ruby-block
+    :require t)
+  (leaf ruby-electric
+    :doc "Minor mode for electrically editing ruby code"
+    :tag "ruby" "languages"
+    :added "2020-08-31"
+    :url "https://github.com/ruby/elisp-ruby-electric"
+    :ensure t
+    :config (ruby-electric-mode t))
   :config
   (autoload 'ruby-mode "ruby-mode"
     "Mode for editing ruby source files" t)
@@ -512,14 +525,9 @@
         (indent-line-to indent)
         (when (> offset 0) (forward-char offset)))))
 
-  (leaf ruby-block
-    :tag "out-of-MELPA"
-    :added "2020-08-28"
-    :el-get juszczakn/ruby-block
-    :require t)
-
   (add-hook 'ruby-mode-hook
             '(lambda ()
+               (ruby-electric-mode)
                (rspec-mode)
                (abbrev-mode 1)
                (ruby-block-mode t)
