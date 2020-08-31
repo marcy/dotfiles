@@ -505,6 +505,7 @@
     :url "https://github.com/ruby/elisp-ruby-electric"
     :ensure t
     :config (ruby-electric-mode t))
+  :setq ((ruby-insert-encoding-magic-comment . nil))
   :config
   (autoload 'ruby-mode "ruby-mode"
     "Mode for editing ruby source files" t)
@@ -708,7 +709,10 @@ See URL `http://batsov.com/rubocop/'."
   :emacs>= 25.1
   :ensure t
   :after dumb-jump
+  :setq ((dumb-jump-default-project . "")
+         (dumb-jump-force-searcher . 'ag))
   :config
+  (dumb-jump-mode t)
   (smart-jump-setup-default-registers))
 
 (leaf migemo
@@ -717,19 +721,35 @@ See URL `http://batsov.com/rubocop/'."
   :added "2020-08-28"
   :url "https://github.com/emacs-jp/migemo"
   :ensure t
+  :setq ((migemo-command . "cmigemo")
+         (migemo-options . '("-q" "--emacs"))
+         (migemo-dictionary . "/usr/local/share/migemo/utf-8/migemo-dict")
+         (migemo-user-dictionary . nil)
+         (migemo-regex-dictionary . nil)
+         (migemo-coding-system . 'utf-8-unix))
   :config
-  (when (and (require 'migemo nil t) (file-exists-p "/usr/local/share/migemo/utf-8/migemo-dict"))
-    (setq migemo-command "cmigemo")
-    (setq migemo-options '("-q" "--emacs"))
-
-    (setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict")
-
-    (setq migemo-user-dictionary nil)
-    (setq migemo-regex-dictionary nil)
-    (setq migemo-coding-system 'utf-8-unix)
+  (when (file-exists-p "/usr/local/share/migemo/utf-8/migemo-dict")
     (load-library "migemo")
-    (migemo-init))
-  )
+    (migemo-init)))
+
+(leaf keyfreq
+  :doc "track command frequencies"
+  :req "cl-lib-0.5"
+  :added "2020-08-31"
+  :ensure t
+  :setq ((keyfreq-file . "~/Dropbox/dotfiles/local/emacs.keyfreq"))
+  :config
+  (keyfreq-autosave-mode 1)
+  (keyfreq-mode 1))
+
+(leaf recentf
+  :doc "setup a menu of recently opened files"
+  :tag "builtin"
+  :added "2020-08-31"
+  :setq ((recentf-max-menu-items . 200)
+         (recentf-max-saved-items . 3000))
+  :config
+  (recentf-mode t))
 
 (leaf-keys (("C-c h" . help-for-help)
             ("C-x C-c" . server-edit)
@@ -750,51 +770,3 @@ See URL `http://batsov.com/rubocop/'."
   :bind (("C-c e" . macrostep-expand)))
 
 (provide 'init)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ag-highlight-search t)
- '(ag-reuse-buffers 'nil)
- '(ag-reuse-window 'nil)
- '(anzu-deactivate-region t)
- '(anzu-mode-lighter "")
- '(anzu-search-threshold 1000)
- '(apib-drafter-executable "aglio")
- '(column-number-mode 1)
- '(custom-safe-themes
-   '("5d3e0746023fc5e246eb3e0e48c1ccb5ce0387fc4273896c6cf02ee349c2eba8" default))
- '(doom-themes-enable-bold t)
- '(doom-themes-enable-italic t)
- '(dumb-jump-default-project "")
- '(dumb-jump-force-searcher 'ag)
- '(dumb-jump-mode t)
- '(global-anzu-mode t)
- '(global-auto-revert-mode 1)
- '(global-font-lock-mode t)
- '(init-loader-show-log-after-init 'error-only)
- '(keyfreq-autosave-mode 1)
- '(keyfreq-file "~/Dropbox/dotfiles/local/emacs.keyfreq")
- '(keyfreq-mode 1)
- '(line-number-mode 1)
- '(neo-show-hidden-files t)
- '(neo-theme 'icons)
- '(package-archives
-   '(("org" . "https://orgmode.org/elpa/")
-     ("melpa" . "https://melpa.org/packages/")
-     ("gnu" . "https://elpa.gnu.org/packages/")))
- '(package-selected-packages
-   '(use-package auto-sudoedit rjsx-mode terraform-mode smart-jump lsp-ruby eglot poly-erb poly-markdown ruby-electric all-the-icons-dired neotree doom-themes which-key web-mode magit color-identifiers-mode google-translate twittering-mode dracula-theme apib-mode migemo lua-mode package-build shut-up epl git commander f s helm-rb keyfreq color-theme-modern elpy py-autopep8 highlight-symbol mark-multiple expand-region bind-key company-go dash yaml-mode wgrep-ag smart-newline sequential-command scss-mode scratch-ext ruby-end ruby-block rubocop rspec-mode rinari pallet osx-dictionary open-junk-file multicolumn markdown-mode js2-mode init-loader helm-projectile helm-ls-git helm-ghq helm-bundle-show helm-ag-r helm-ag haskell-mode haml-mode go-autocomplete gitignore-mode github-browse-file gitconfig-mode git-gutter git-gutter+ gh flycheck fish-mode exec-path-from-shell elscreen elixir-mode dumb-jump dired+ color-moccur coffee-mode auto-highlight-symbol anzu ag 2048-game))
- '(recentf-max-menu-items 200)
- '(recentf-max-saved-items 3000)
- '(recentf-mode t)
- '(ruby-insert-encoding-magic-comment nil)
- '(send-mail-function 'smtpmail-send-it)
- '(show-paren-mode t)
- '(show-paren-style 'parenthesis)
- '(smart-newline-mode t t)
- '(transient-mark-mode t)
- '(truncate-partial-width-windows nil)
- '(which-key-mode t)
- '(which-key-setup-side-window-right t))
