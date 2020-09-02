@@ -50,7 +50,8 @@
             (scroll-bar-mode . nil)
             (indent-tabs-mode . nil))
   :config
-  (defalias 'yes-or-no-p 'y-or-n-p))
+  (defalias 'yes-or-no-p 'y-or-n-p)
+  (defalias 'exit 'save-buffers-kill-emacs))
 
 ;;; lang
 (setenv "LANG" "C")
@@ -71,10 +72,12 @@
 ;; metaタグの内容で文字コードを自動判別しないように設定
 (setq auto-coding-functions nil)
 
-;;; server mode で起動
-(load-library "server")
-(server-start)
-(defalias 'exit 'save-buffers-kill-emacs)
+(leaf server
+  :doc "Lisp code for GNU Emacs running as server process"
+  :tag "builtin"
+  :added "2020-09-02"
+  :config
+  (server-start))
 
 ;; ファイル保存時に行末の空行消す
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
