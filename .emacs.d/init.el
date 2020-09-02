@@ -61,7 +61,8 @@
   (server-start))
 
 ;; ファイル保存時に行末の空行消す
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(leaf leaf-convert
+  :hook ((before-save-hook . delete-trailing-whitespace)))
 
 (leaf dash
   :doc "A modern list library for Emacs"
@@ -131,16 +132,16 @@
   :tag "lisp" "convenience"
   :added "2020-08-28"
   :url "http://www.emacswiki.org/cgi-bin/wiki/download/sequential-command.el"
-  :ensure t)
-
-(leaf sequential-command-config
-  :doc "Examples of sequential-command.el"
-  :tag "out-of-MELPA" "convenience" "extensions"
-  :added "2020-08-28"
-  :url "http://www.emacswiki.org/cgi-bin/wiki/download/sequential-command-config.el"
-  :require t
-  :config
-  (sequential-command-setup-keys))
+  :ensure t
+  :init
+  (leaf sequential-command-config
+    :doc "Examples of sequential-command.el"
+    :tag "out-of-MELPA" "convenience" "extensions"
+    :added "2020-08-28"
+    :url "http://www.emacswiki.org/cgi-bin/wiki/download/sequential-command-config.el"
+    :require t
+    :config
+    (sequential-command-setup-keys)))
 
 (leaf auto-sudoedit
   :doc "Auto sudo edit by tramp"
@@ -150,13 +151,6 @@
   :url "https://github.com/ncaq/auto-sudoedit"
   :emacs>= 24.4
   :ensure t)
-
-(leaf frame
-  :unless (eq window-system nil)
-  :setq-default ((indicate-buffer-boundaries quote
-                                             ((top)
-                                              (bottom . right)
-                                              (down . right)))))
 
 (leaf font
   :when (eq window-system 'ns)
@@ -172,7 +166,6 @@
   (set-frame-parameter nil 'alpha
                        '(95 75)))
 
-;; theme
 (leaf doom-themes
   :doc "an opinionated pack of modern color-themes"
   :req "emacs-25.1" "cl-lib-0.5"
@@ -636,19 +629,17 @@ See URL `http://batsov.com/rubocop/'."
   :url "https://github.com/domtronn/all-the-icons.el"
   :emacs>= 24.3
   :ensure t
-  :after memoize)
-
-(leaf all-the-icons-dired
-  :doc "Shows icons for each file in dired mode"
-  :req "emacs-24.4" "all-the-icons-2.2.0"
-  :tag "dired" "icons" "files" "emacs>=24.4"
-  :added "2020-08-28"
-  :url "https://github.com/jtbm37/all-the-icons-dired"
-  :emacs>= 24.4
-  :ensure t
-  :after all-the-icons
-  :config
-  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+  :init
+  (leaf all-the-icons-dired
+    :doc "Shows icons for each file in dired mode"
+    :req "emacs-24.4" "all-the-icons-2.2.0"
+    :tag "dired" "icons" "files" "emacs>=24.4"
+    :added "2020-08-28"
+    :url "https://github.com/jtbm37/all-the-icons-dired"
+    :emacs>= 24.4
+    :ensure t
+    :config
+    (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)))
 
 (leaf yaml-mode
   :doc "Major mode for editing YAML files"
