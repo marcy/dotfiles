@@ -53,25 +53,6 @@
   (defalias 'yes-or-no-p 'y-or-n-p)
   (defalias 'exit 'save-buffers-kill-emacs))
 
-;;; lang
-(setenv "LANG" "C")
-(setenv "LC_TIME" "C")
-(setenv "LC_MESSAGE" "C")
-(setenv "LC_CTYPE" "C")
-(setenv "LC_MONETARY" "C")
-(set-language-environment "Japanese")
-
-;;; utf8
-(set-default-coding-systems 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-buffer-file-coding-system 'utf-8)
-(set-file-name-coding-system 'utf-8)
-(prefer-coding-system 'utf-8)
-
-;; metaタグの内容で文字コードを自動判別しないように設定
-(setq auto-coding-functions nil)
-
 (leaf server
   :doc "Lisp code for GNU Emacs running as server process"
   :tag "builtin"
