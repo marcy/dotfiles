@@ -732,6 +732,9 @@ See URL `http://batsov.com/rubocop/'."
             ("C-@" . mark-word)
             ("C-x l" . goto-line)))
 
+(leaf leaf-convert
+  :setq ((default-directory . "~/")))
+
 (leaf leaf
   :config
   (leaf leaf-convert :ensure t)
