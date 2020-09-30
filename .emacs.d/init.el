@@ -105,6 +105,18 @@
   (elscreen-start)
   (elscreen-set-prefix-key "\C-t"))
 
+(leaf terraform-mode
+  :doc "Major mode for terraform configuration file"
+  :req "emacs-24.3" "hcl-mode-0.3"
+  :tag "emacs>=24.3"
+  :added "2020-09-07"
+  :url "https://github.com/syohex/emacs-terraform-mode"
+  :emacs>= 24.3
+  :ensure t
+  :after hcl-mode
+  :config
+  (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode))
+
 (leaf exec-path-from-shell
   :doc "Get environment variables such as $PATH from the shell"
   :req "emacs-24.1"
@@ -452,7 +464,14 @@
          ("Cakefile" . coffee-mode))
   :setq ((js-indent-level . 2)))
 
-(leaf markdown
+(leaf markdown-mode
+  :doc "Major mode for Markdown-formatted text"
+  :req "emacs-25.1"
+  :tag "itex" "github flavored markdown" "markdown" "emacs>=25.1"
+  :added "2020-09-23"
+  :url "https://jblevins.org/projects/markdown-mode/"
+  :emacs>= 25.1
+  :ensure t
   :setq ((markdown-asymmetric-header . t)
          (markdown-header-scaling . t))
   :config
@@ -707,6 +726,14 @@ See URL `http://batsov.com/rubocop/'."
     (load-library "migemo")
     (migemo-init)))
 
+(leaf github-browse-file
+  :doc "View the file you're editing on GitHub"
+  :req "cl-lib-0.5"
+  :tag "github" "git" "vc" "convenience"
+  :added "2020-09-30"
+  :url "https://github.com/osener/github-browse-file"
+  :ensure t)
+
 (leaf keyfreq
   :doc "track command frequencies"
   :req "cl-lib-0.5"
@@ -748,3 +775,5 @@ See URL `http://batsov.com/rubocop/'."
   :bind (("C-c e" . macrostep-expand)))
 
 (provide 'init)
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
