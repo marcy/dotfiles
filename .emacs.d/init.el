@@ -484,6 +484,23 @@
   :when (executable-find "pandoc")
   :setq ((markdown-command . "pandoc -s --self-contained -t html5 -c ~/.pandoc/github-markdown.css")))
 
+(leaf yasnippet
+  :doc "Yet another snippet extension for Emacs"
+  :req "cl-lib-0.5"
+  :tag "emulation" "convenience"
+  :added "2020-10-07"
+  :url "http://github.com/joaotavora/yasnippet"
+  :ensure t)
+
+(leaf rspec-mode
+  :doc "Enhance ruby-mode for RSpec"
+  :req "ruby-mode-1.0" "cl-lib-0.4"
+  :tag "ruby" "rspec"
+  :added "2020-10-07"
+  :url "http://github.com/pezra/rspec-mode"
+  :ensure t
+  :after ruby-mode)
+
 (leaf ruby-mode
   :doc "Major mode for editing Ruby files"
   :tag "builtin"
