@@ -770,6 +770,19 @@ See URL `http://batsov.com/rubocop/'."
   :config
   (recentf-mode t))
 
+(leaf typescript-mode
+  :doc "Major mode for editing typescript"
+  :req "emacs-24.3"
+  :tag "languages" "typescript" "emacs>=24.3"
+  :added "2020-10-23"
+  :url "http://github.com/ananthakumaran/typescript.el"
+  :emacs>= 24.3
+  :ensure t)
+
+(leaf leaf-convert
+  :config
+  (global-auto-revert-mode 1))
+
 (leaf-keys (("C-c h" . help-for-help)
             ("C-x C-c" . server-edit)
             ("C-h" . delete-backward-char)
