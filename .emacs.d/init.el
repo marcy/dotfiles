@@ -334,6 +334,28 @@
   (set-face-attribute 'whitespace-tab nil :foreground "labelColor" :underline t)
   (set-face-attribute 'whitespace-space nil :foreground "GreenYellow" :weight 'bold))
 
+(leaf lsp-mode
+  :doc "LSP mode"
+  :req "emacs-26.1" "dash-2.14.1" "dash-functional-2.14.1" "f-0.20.0" "ht-2.0" "spinner-1.7.3" "markdown-mode-2.3" "lv-0"
+  :tag "languages" "emacs>=26.1"
+  :added "2020-11-02"
+  :url "https://github.com/emacs-lsp/lsp-mode"
+  :emacs>= 26.1
+  :ensure t
+  :after spinner markdown-mode lv
+  :init
+  (leaf lsp-ui
+    :doc "UI modules for lsp-mode"
+    :req "emacs-26.1" "dash-2.14" "dash-functional-1.2.0" "lsp-mode-6.0" "markdown-mode-2.3"
+    :tag "tools" "languages" "emacs>=26.1"
+    :added "2020-11-02"
+    :url "https://github.com/emacs-lsp/lsp-ui"
+    :emacs>= 26.1
+    :ensure t
+    :after lsp-mode markdown-mode)
+  :config
+  (add-hook 'ruby-mode-hook #'lsp))
+
 (leaf company
   :doc "Modular text completion framework"
   :req "emacs-24.3"
@@ -381,6 +403,16 @@
                       :background "orange")
   (set-face-attribute 'company-scrollbar-bg nil
                       :background "gray40"))
+
+(leaf company-lsp
+  :doc "Company completion backend for lsp-mode."
+  :req "emacs-25.1" "lsp-mode-6.0" "company-0.9.0" "s-1.2.0" "dash-2.11.0"
+  :tag "emacs>=25.1"
+  :added "2020-11-02"
+  :url "https://github.com/tigersoldier/company-lsp"
+  :emacs>= 25.1
+  :ensure t
+  :after lsp-mode company)
 
 (leaf git-gutter
   :doc "Port of Sublime Text plugin GitGutter"
