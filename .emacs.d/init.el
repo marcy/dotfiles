@@ -783,16 +783,6 @@ See URL `http://batsov.com/rubocop/'."
   :url "https://github.com/osener/github-browse-file"
   :ensure t)
 
-(leaf keyfreq
-  :doc "track command frequencies"
-  :req "cl-lib-0.5"
-  :added "2020-08-31"
-  :ensure t
-  :setq ((keyfreq-file . "~/Dropbox/dotfiles/local/emacs.keyfreq"))
-  :config
-  (keyfreq-autosave-mode 1)
-  (keyfreq-mode 1))
-
 (leaf recentf
   :doc "setup a menu of recently opened files"
   :tag "builtin"
