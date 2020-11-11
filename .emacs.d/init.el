@@ -352,9 +352,7 @@
     :url "https://github.com/emacs-lsp/lsp-ui"
     :emacs>= 26.1
     :ensure t
-    :after lsp-mode markdown-mode)
-  :config
-  (add-hook 'ruby-mode-hook #'lsp))
+    :after lsp-mode markdown-mode))
 
 (leaf company
   :doc "Modular text completion framework"
@@ -592,8 +590,8 @@
                (rspec-mode)
                (abbrev-mode 1)
                (ruby-block-mode t)
-               (auto-highlight-symbol-mode t)
                (flycheck-mode t)))
+  (add-hook 'ruby-mode-hook #'lsp)
 
   (setq ruby-electric-expand-delimiters-list nil)
 
