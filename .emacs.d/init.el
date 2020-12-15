@@ -254,16 +254,6 @@
     :ensure t
     :bind (("C-x y" . helm-bundle-show))
     :after helm)
-  (leaf helm-ag
-    :doc "The silver searcher with helm interface"
-    :req "emacs-25.1" "helm-2.0"
-    :tag "emacs>=25.1"
-    :added "2020-08-31"
-    :url "https://github.com/syohex/emacs-helm-ag"
-    :emacs>= 25.1
-    :ensure t
-    :after helm
-    :bind (("C-x C-g" . helm-ag)))
   :bind (("C-;" . helm-mini)
          ("C-x b" . helm-buffers-list)
          ("M-x" . helm-M-x)
@@ -664,6 +654,7 @@ See URL `http://batsov.com/rubocop/'."
   :req "dash-2.8.0" "s-1.9.0" "cl-lib-0.5"
   :added "2020-08-28"
   :ensure t
+  :bind (("C-x C-g" . ag))
   :config
   (leaf wgrep-ag
     :doc "Writable ag buffer and apply the changes to files"
