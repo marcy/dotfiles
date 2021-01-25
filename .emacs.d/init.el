@@ -521,6 +521,15 @@
   :ensure t
   :after ruby-mode)
 
+(leaf haml-mode
+  :doc "Major mode for editing Haml files"
+  :req "emacs-24" "cl-lib-0.5"
+  :tag "html" "languages" "markup" "emacs>=24"
+  :added "2021-01-14"
+  :url "https://github.com/nex3/haml-mode"
+  :emacs>= 24
+  :ensure t)
+
 (leaf ruby-mode
   :doc "Major mode for editing Ruby files"
   :tag "builtin"
