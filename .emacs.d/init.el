@@ -4,6 +4,9 @@
           (expand-file-name
            (file-name-directory (or load-file-name byte-compile-current-file))))))
 
+(custom-set-variables
+ '(gnutls-algorithm-priority "normal:-vers-tls1.3"))
+
 (eval-and-compile
   (customize-set-variable
    'package-archives '(("org"   . "https://orgmode.org/elpa/")
@@ -827,3 +830,4 @@ See URL `http://batsov.com/rubocop/'."
 (provide 'init)
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
+(put 'set-goal-column 'disabled nil)
