@@ -37,9 +37,11 @@ export LC_CTYPE=C
 export EDITOR="emacs -nw -q"
 export GOPATH=$HOME
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH=$PYENV_ROOT/bin:$HOME/.cabal/bin:$HOME/bin:/opt/local/bin:/usr/local/bin:/bin:/usr/local/sbin:/sbin:/usr/sbin:/usr/bin:/usr/X11R6/bin:$PATH:$JRUBY_HOME/bin:$HOME/Dropbox/bin:/usr/local/share/npm/bin:$GOPATH/bin:/usr/local/share/git-core/contrib/diff-highlight:/usr/local/opt/mysql-client/bin
+export PATH=/usr/local/opt/openjdk/bin:$PYENV_ROOT/bin:$HOME/.cabal/bin:$HOME/bin:/opt/local/bin:/usr/local/bin:/bin:/usr/local/sbin:/sbin:/usr/sbin:/usr/bin:/usr/X11R6/bin:$PATH:$JRUBY_HOME/bin:$HOME/Dropbox/bin:/usr/local/share/npm/bin:$GOPATH/bin:/usr/local/share/git-core/contrib/diff-highlight:/usr/local/opt/mysql-client/bin
 export BUNDLER_EDITOR="emacsclient -n"
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+export CPPFLAGS="-I/usr/local/opt/openjdk/include"
+export NODE_OPTIONS="--max-old-space-size=4096"
 
 HISTFILE=$HOME/Dropbox/dotfiles/.zsh-history
 HISTSIZE=10000
@@ -70,8 +72,11 @@ alias -g T='| tail'
 alias -g B='`git branch | peco | sed -e "s/^\*[ ]*//g"`'
 
 eval "$(hub alias -s)"
-eval "$(pyenv init -)"
 eval "$(rbenv init - zsh)"
+eval "$(nodenv init -)"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init --path)"
+fi
 
 function do_enter() {
     if [ -n "$BUFFER" ]; then
@@ -129,3 +134,9 @@ function peco-bundle-open() {
 }
 zle -N peco-bundle-open
 bindkey '^o' peco-bundle-open
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/oyamada/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/oyamada/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/oyamada/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/oyamada/google-cloud-sdk/completion.zsh.inc'; fi
