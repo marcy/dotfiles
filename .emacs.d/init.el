@@ -395,15 +395,17 @@
   (set-face-attribute 'company-scrollbar-bg nil
                       :background "gray40"))
 
-(leaf company-lsp
-  :doc "Company completion backend for lsp-mode."
-  :req "emacs-25.1" "lsp-mode-6.0" "company-0.9.0" "s-1.2.0" "dash-2.11.0"
-  :tag "emacs>=25.1"
-  :added "2020-11-02"
-  :url "https://github.com/tigersoldier/company-lsp"
-  :emacs>= 25.1
-  :ensure t
-  :after lsp-mode company)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (leaf company-lsp                                                          ;;
+;;   :doc "Company completion backend for lsp-mode."                          ;;
+;;   :req "emacs-25.1" "lsp-mode-6.0" "company-0.9.0" "s-1.2.0" "dash-2.11.0" ;;
+;;   :tag "emacs>=25.1"                                                       ;;
+;;   :added "2020-11-02"                                                      ;;
+;;   :url "https://github.com/tigersoldier/company-lsp"                       ;;
+;;   :emacs>= 25.1                                                            ;;
+;;   :ensure t                                                                ;;
+;;   :after lsp-mode company)                                                 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (leaf git-gutter
   :doc "Port of Sublime Text plugin GitGutter"
