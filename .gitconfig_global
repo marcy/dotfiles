@@ -1,35 +1,35 @@
 [include]
-	path = ./themes.gitconfig
+        path = ./themes.gitconfig
 [alias]
-	co = checkout
-	st = status -sb
-	pr = pull --rebase
-	fo = fetch origin
-	ro = rebase origin
-	rc = rebase --continue
-	wd = diff --word-diff
-	lg = log --graph --pretty=oneline --decorate --date=short --abbrev-commit --branches
-	delete-merged-branches = !git branch --merged | grep -v \\* | grep -v "master$" | grep -v "develop$" | xargs -I % git branch -d %
-	push-f = push --force-with-lease
+        co = checkout
+        st = status -sb
+        pr = pull --rebase
+        fo = fetch origin
+        ro = rebase origin
+        rc = rebase --continue
+        wd = diff --word-diff
+        lg = log --graph --pretty=oneline --decorate --date=short --abbrev-commit --branches
+        delete-merged-branches = !git branch --merged | grep -v \\* | grep -v "master$" | grep -v "develop$" | xargs -I % git branch -d %
+        push-f = push --force-with-lease
 [core]
-	editor = emacsclient
-	pager = delta
+        editor = emacsclient
+        pager = delta
 [interactive]
-	diffFilter = delta --color-only
+        diffFilter = delta --color-only
 [delta]
-	features = woolly-mammoth
+        features = woolly-mammoth
 [browse-remote "github.com"]
-	top = https://{host}/{path}
-	ref = https://{host}/{path}/tree/{short_ref}
-	rev = https://{host}/{path}/commit/{commit}
-	file = "https://{host}/{path}/blob/{short_rev}/{file}{line && \"#L%d\" % line}"
+        top = https://{host}/{path}
+        ref = https://{host}/{path}/tree/{short_ref}
+        rev = https://{host}/{path}/commit/{commit}
+        file = "https://{host}/{path}/blob/{short_rev}/{file}{line && \"#L%d\" % line}"
 [ghq]
-	root = ~/src
+        root = ~/src
 [fetch]
-	prune = true
+        prune = true
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
-	required = true
+        clean = git-lfs clean %f
+        smudge = git-lfs smudge %f
+        required = true
 [ghq "CODECOMMIT-URL"]
-	vcs = git
+        vcs = git
