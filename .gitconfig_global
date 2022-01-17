@@ -1,3 +1,5 @@
+[include]
+	path = ./themes.gitconfig
 [alias]
 	co = checkout
 	st = status -sb
@@ -10,20 +12,17 @@
 	delete-merged-branches = !git branch --merged | grep -v \\* | grep -v "master$" | grep -v "develop$" | xargs -I % git branch -d %
 	push-f = push --force-with-lease
 [core]
-	editor=emacsclient
-	# pager = delta --plus-color="#012800" --minus-color="#340001" --theme='Dracula'
-[color]
-	diff = auto
-	ui = auto
+	editor = emacsclient
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	features = woolly-mammoth
 [browse-remote "github.com"]
 	top = https://{host}/{path}
 	ref = https://{host}/{path}/tree/{short_ref}
 	rev = https://{host}/{path}/commit/{commit}
 	file = "https://{host}/{path}/blob/{short_rev}/{file}{line && \"#L%d\" % line}"
-[pager]
-	log = diff-highlight | less
-	show = diff-highlight | less
-	diff = diff-highlight | less
 [ghq]
 	root = ~/src
 [fetch]
@@ -34,5 +33,3 @@
 	required = true
 [ghq "CODECOMMIT-URL"]
 	vcs = git
-[interactive]
-	diffFilter = delta --color-only
