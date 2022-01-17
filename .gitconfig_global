@@ -1,16 +1,7 @@
 [include]
         path = ./themes.gitconfig
 [alias]
-        co = checkout
-        st = status -sb
-        pr = pull --rebase
-        fo = fetch origin
-        ro = rebase origin
-        rc = rebase --continue
-        wd = diff --word-diff
-        lg = log --graph --pretty=oneline --decorate --date=short --abbrev-commit --branches
         delete-merged-branches = !git branch --merged | grep -v \\* | grep -v "master$" | grep -v "develop$" | xargs -I % git branch -d %
-        push-f = push --force-with-lease
 [core]
         editor = emacsclient
         pager = delta
