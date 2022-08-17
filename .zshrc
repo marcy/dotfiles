@@ -3,6 +3,8 @@
 export ZPLUG_HOME=/usr/local/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
+source /usr/local/share/zsh-abbr/zsh-abbr.zsh
+
 zplug 'dracula/zsh', as:theme
 zplug 'zsh-users/zsh-syntax-highlighting', defer:2
 zplug 'zsh-users/zsh-completions'
@@ -55,7 +57,7 @@ alias diff='colordiff'
 alias du='dust'
 alias e='open -a /Applications/Emacs.app'
 alias ec='emacsclient -n'
-alias g="git"
+#alias g="git"
 alias ls='exa'
 #alias ls='ls -FGv'
 alias mv='mv -i'
@@ -71,11 +73,17 @@ alias -g H='| head'
 alias -g T='| tail'
 alias -g B='`git branch | peco | sed -e "s/^\*[ ]*//g"`'
 
-eval "$(hub alias -s)"
-eval "$(rbenv init - zsh)"
-eval "$(nodenv init -)"
+if command -v hub 1>/dev/null 2>&1; then
+    eval "$(hub alias -s)"
+fi
+if command -v rbenv 1>/dev/null 2>&1; then
+    eval "$(rbenv init - zsh)"
+fi
+if command -v nodenv 1>/dev/null 2>&1; then
+    eval "$(nodenv init -)"
+fi
 if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init --path)"
+    eval "$(pyenv init --path)"
 fi
 
 function do_enter() {
