@@ -1,5 +1,5 @@
 [include]
-        path = ./themes.gitconfig
+        path = ./.themes.gitconfig
 [alias]
         co = checkout
         delete-merged-branches = !git branch --merged | grep -v \\* | grep -v "master$" | grep -v "develop$" | xargs -I % git branch -d %
