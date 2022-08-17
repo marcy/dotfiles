@@ -37,12 +37,12 @@
 (leaf cus-start
   :doc "define customization properties of builtins"
   :tag "builtin" "internal"
-  :preface
-  (defun c/redraw-frame nil
-    (interactive)
-    (redraw-frame))
+;  :preface
+;  (defun c/redraw-frame nil
+;    (interactive)
+;    (redraw-frame))
 
-  :bind (("M-ESC ESC" . c/redraw-frame))
+;  :bind (("M-ESC ESC" . c/redraw-frame))
   :custom '((user-full-name . "Masashi Oyamada")
             (user-mail-address . "masashi.oyamada@gmail.com")
             (history-length . t)
@@ -67,11 +67,11 @@
 (leaf leaf-convert
   :hook ((before-save-hook . delete-trailing-whitespace)))
 
-(leaf dash
-  :doc "A modern list library for Emacs"
-  :tag "lists"
-  :added "2020-08-28"
-  :ensure t)
+;; (leaf Dash
+;;   :doc "A modern list library for Emacs"
+;;   :tag "lists"
+;;   :added "2020-08-28"
+;;   :ensure t)
 
 (leaf delsel
   :doc "delete selection if you insert"
