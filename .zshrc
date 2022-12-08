@@ -1,13 +1,12 @@
 # -*- mode: shell-script -*-
 
-export ZPLUG_HOME=/usr/local/opt/zplug
+export ZPLUG_HOME=/opt/homebrew/opt/zplug
 source $ZPLUG_HOME/init.zsh
-
-source /usr/local/share/zsh-abbr/zsh-abbr.zsh
 
 zplug 'dracula/zsh', as:theme
 zplug 'zsh-users/zsh-syntax-highlighting', defer:2
 zplug 'zsh-users/zsh-completions'
+zplug 'olets/zsh-abbr'
 
 # 未インストール項目をインストールする
 if ! zplug check --verbose; then
@@ -39,7 +38,7 @@ export LC_CTYPE=C
 export EDITOR="emacs -nw -q"
 export GOPATH=$HOME
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH=/usr/local/opt/openjdk/bin:$PYENV_ROOT/bin:$HOME/.cabal/bin:$HOME/bin:/opt/local/bin:/usr/local/bin:/bin:/usr/local/sbin:/sbin:/usr/sbin:/usr/bin:/usr/X11R6/bin:$PATH:$JRUBY_HOME/bin:$HOME/Dropbox/bin:/usr/local/share/npm/bin:$GOPATH/bin:/usr/local/share/git-core/contrib/diff-highlight:/usr/local/opt/mysql-client/bin
+export PATH=/opt/homebrew/bin/:$PYENV_ROOT/bin:$HOME/.cabal/bin:$HOME/bin:/usr/local/bin:/bin:/sbin:/usr/sbin:/usr/bin:$PATH:$HOME/Dropbox/bin:$GOPATH/bin:
 export BUNDLER_EDITOR="emacsclient -n"
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 export CPPFLAGS="-I/usr/local/opt/openjdk/include"
@@ -51,15 +50,10 @@ SAVEHIST=100000
 
 function history-all { \history -E 1 }
 
-alias be='bundle exec'
 alias cp='cp -i'
 alias diff='colordiff'
 alias du='dust'
-alias e='open -a /Applications/Emacs.app'
-alias ec='emacsclient -n'
-#alias g="git"
 alias ls='exa'
-#alias ls='ls -FGv'
 alias mv='mv -i'
 alias peco='peco --layout=bottom-up'
 alias ps='procs'
@@ -84,6 +78,13 @@ if command -v nodenv 1>/dev/null 2>&1; then
 fi
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init --path)"
+fi
+
+if type brew &>/dev/null; then
+    FPATH=$(brew --prefix)/share/zsh-completions:$(brew --prefix)/share/zsh/site-functions:$FPATH
+
+    autoload -Uz compinit
+    compinit
 fi
 
 function do_enter() {
