@@ -1,8 +1,11 @@
 [include]
         path = ./.themes.gitconfig
+[push]
+	autoSetupRemote = true
 [alias]
         co = checkout
         delete-merged-branches = !git branch --merged | grep -v \\* | grep -v "master$" | grep -v "develop$" | xargs -I % git branch -d %
+        delete-merged-branches-dryrun = !git branch --merged | grep -v \\* | grep -v "master$" | grep -v "develop$"
 [core]
         editor = code --wait
         pager = delta
