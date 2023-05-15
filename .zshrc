@@ -38,7 +38,7 @@ export LC_CTYPE=C
 export EDITOR="emacs -nw -q"
 export GOPATH=$HOME
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH=/opt/homebrew/bin/:$PYENV_ROOT/bin:$HOME/.cabal/bin:$HOME/bin:/usr/local/bin:/bin:/sbin:/usr/sbin:/usr/bin:$PATH:$HOME/Dropbox/bin:$GOPATH/bin:
+export PATH=/opt/homebrew/bin/:$PYENV_ROOT/bin:$HOME/.cabal/bin:$HOME/bin:/usr/local/bin:/bin:/sbin:/usr/sbin:/usr/bin:$PATH:$HOME/Dropbox/bin:$HOME/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/share/google-cloud-sdk/bin/:
 export BUNDLER_EDITOR="emacsclient -n"
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 export CPPFLAGS="-I/usr/local/opt/openjdk/include"
@@ -59,6 +59,7 @@ alias peco='peco --layout=bottom-up'
 alias ps='procs'
 alias r='bundle exec rails'
 alias rm='rm -i'
+alias note='code ~/Dropbox/junk'
 
 # グローバルエイリアス
 alias -g G='| grep'
@@ -85,6 +86,16 @@ if type brew &>/dev/null; then
 
     autoload -Uz compinit
     compinit
+fi
+
+LOCAL_ZSH_DIR="${HOME}/Dropbox/.zsh"
+# .zshがディレクトリで、読み取り、実行、が可能なとき
+if [ -d $LOCAL_ZSH_DIR ] && [ -r $LOCAL_ZSH_DIR ] && [ -x $LOCAL_ZSH_DIR ]; then
+    # zshディレクトリより下にある、.zshファイルの分、繰り返す
+    for file in ${LOCAL_ZSH_DIR}/**/*.zsh; do
+        # 読み取り可能ならば実行する
+        [ -r $file ] && source $file
+    done
 fi
 
 function do_enter() {
@@ -149,3 +160,7 @@ if [ -f '/Users/oyamada/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/oyamada
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/oyamada/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/oyamada/google-cloud-sdk/completion.zsh.inc'; fi
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/oyamada/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
