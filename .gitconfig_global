@@ -9,6 +9,7 @@
 [core]
         editor = code --wait
         pager = delta
+        ignorecase = false
 [interactive]
         diffFilter = delta --color-only
 [delta]
