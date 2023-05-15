@@ -168,18 +168,20 @@
   :ensure t)
 
 (leaf font
-  :when (eq window-system 'ns)
+  :when (eq window-system 'mac)
   :config
-  (create-fontset-from-ascii-font "Ricty Diminished-14:weight=normal:slant=normal" nil "ricty_diminished")
-  (set-fontset-font "fontset-ricty_diminished" 'unicode
-                    (font-spec :family "Ricty Diminished" :weight 'normal :slant 'normal)
-                    nil 'append)
-  (add-to-list 'default-frame-alist
-               '(font . "fontset-ricty_diminished"))
-  (add-to-list 'initial-frame-alist
-               '(font . "fontset-ricty_diminished"))
-  (set-frame-parameter nil 'alpha
-                       '(95 75)))
+  (let* ((size 16)
+       (asciifont "Cica")
+       (jpfont "Cica")
+       (h (* size 10))
+       (fontspec (font-spec :family asciifont))
+       (jp-fontspec (font-spec :family jpfont)))
+  (set-face-attribute 'default nil :family asciifont :height h)
+  (set-fontset-font nil 'japanese-jisx0213.2004-1 jp-fontspec)
+  (set-fontset-font nil 'japanese-jisx0213-2 jp-fontspec)
+  (set-fontset-font nil 'katakana-jisx0201 jp-fontspec)
+  (set-fontset-font nil '(#x0080 . #x024F) fontspec)
+  (set-fontset-font nil '(#x0370 . #x03FF) fontspec)))
 
 (leaf doom-themes
   :doc "an opinionated pack of modern color-themes"
@@ -222,11 +224,11 @@
   :require t
   :ensure t
   :init
-  (leaf helm-config
-    :doc "Applications library for `helm.el'"
-    :tag "out-of-MELPA"
-    :added "2020-08-31"
-    :require t)
+  ;;(leaf helm-config
+  ;;  :doc "Applications library for `helm.el'"
+  ;;  :tag "out-of-MELPA"
+  ;;  :added "2020-08-31"
+  ;;  :require t)
   (leaf helm-ghq
     :doc "Ghq with helm interface"
     :req "emacs-24" "helm-2.2.0"
