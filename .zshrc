@@ -38,11 +38,12 @@ export LC_CTYPE=C
 export EDITOR="emacs -nw -q"
 export GOPATH=$HOME
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH=/opt/homebrew/bin/:$PYENV_ROOT/bin:$HOME/.cabal/bin:$HOME/bin:/usr/local/bin:/bin:/sbin:/usr/sbin:/usr/bin:$PATH:$HOME/Dropbox/bin:$HOME/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/share/google-cloud-sdk/bin/:
 export BUNDLER_EDITOR="emacsclient -n"
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 export CPPFLAGS="-I/usr/local/opt/openjdk/include"
 export NODE_OPTIONS="--max-old-space-size=4096"
+export PATH=/opt/homebrew/bin/:$PYENV_ROOT/bin:$HOME/.cabal/bin:$HOME/bin:/usr/local/bin:/bin:/sbin:/usr/sbin:/usr/bin:$PATH:$HOME/Dropbox/bin:$HOME/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/share/google-cloud-sdk/bin/:
+export PATH="$(aqua root-dir)/bin:$PATH"
 
 HISTFILE=$HOME/Dropbox/dotfiles/.zsh-history
 HISTSIZE=10000
@@ -60,6 +61,8 @@ alias ps='procs'
 alias r='bundle exec rails'
 alias rm='rm -i'
 alias note='code ~/Dropbox/junk'
+alias e='open -a /opt/homebrew/opt/emacs-mac/Emacs.app'
+alias ec='emacsclient -n'
 
 # グローバルエイリアス
 alias -g G='| grep'
