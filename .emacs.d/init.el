@@ -476,56 +476,37 @@
   :tag "emulation" "convenience"
   :url "http://github.com/joaotavora/yasnippet"
   :added "2023-05-30"
-  :ensure t)
-
-;; (leaf go-mode
-;;   :doc "Major mode for the Go programming language"
-;;   :req "emacs-26.1"
-;;   :tag "go" "languages" "emacs>=26.1"
-;;   :url "https://github.com/dominikh/go-mode.el"
-;;   :added "2023-05-30"
-;;   :emacs>= 26.1
-;;   :ensure t)
-
-;; (leaf go
-;;   :mode (("\\.go$" . go-mode))
-;;   :hook ((go-mode-hook . company-mode)
-;;          (go-mode-hook . flycheck-mode)
-;;          (go-mode-hook . copilot-mode)
-;;          (go-mode-hook . lsp))
-;;   :setq ((gofmt-command . "goimports"))
-;;   :config
-;;   (lambda nil
-;;     (add-hook 'before-save-hook 'gofmt-before-save)
-;;     (local-set-key
-;;      (kbd "M-.")
-;;      'godef-jump)
-;;     (set
-;;      (make-local-variable 'company-backends)
-;;      '(company-go))
-;;               (company-mode)
-;;               (setq tab-width 2)))
-
-
-;; (setq gofmt-command "goimports")
-;; (add-hook 'before-save-hook 'gofmt-before-save)
-
-(leaf leaf-convert
+  :ensure t
   :config
-  (add-hook 'go-mode-hook
-            (lambda nil
-              (setq gofmt-command "goimports")
-              (add-hook 'before-save-hook 'gofmt-before-save)
-              (set
-               (make-local-variable 'compile-command)
-               "go build -v && go test -v && go vet")
-              (local-set-key
-               (kbd "M-.")
-               'godef-jump))
-            ;;(go-eldoc-setup)
-            ))
+  (yas-global-mode 1))
 
-(yas-global-mode 1)
+
+(leaf go-mode
+  :doc "Major mode for the Go programming language"
+  :req "emacs-26.1"
+  :tag "go" "languages" "emacs>=26.1"
+  :url "https://github.com/dominikh/go-mode.el"
+  :added "2023-05-30"
+  :emacs>= 26.1
+  :ensure t
+  :mode (("\\.go$" . go-mode))
+  :hook ((before-save-hook . gofmt-before-save)
+         (go-mode-hook . company-mode)
+         (go-mode-hook . flycheck-mode)
+         (go-mode-hook . copilot-mode)
+         (go-mode-hook . lsp))
+  :init (setq gofmt-command "goimports")
+  :setq ((tab-width . 2))
+  :config
+  (local-set-key
+   (kbd "M-.")
+   'godef-jump)
+  (set
+   (make-local-variable 'company-backends)
+   '(company-go))
+  (company-mode))
+
+
 
 (leaf copilot
   :el-get (copilot
