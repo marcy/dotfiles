@@ -326,7 +326,7 @@
   :config
   (global-whitespace-mode t)
   (set-face-attribute 'whitespace-trailing nil :foreground "DeepPink" :underline t)
-  (set-face-attribute 'whitespace-tab nil :foreground "labelColor" :underline t)
+  (set-face-attribute 'whitespace-tab nil :foreground "grey20" :background 'unspecified :underline t)
   (set-face-attribute 'whitespace-space nil :foreground "GreenYellow" :weight 'bold))
 
 (leaf lsp-mode
@@ -395,7 +395,7 @@
   (set-face-attribute 'company-scrollbar-fg nil
                       :background "orange")
   (set-face-attribute 'company-scrollbar-bg nil
-                      :background "gray40"))
+                       :background "gray40"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (leaf company-lsp                                                          ;;
@@ -408,6 +408,8 @@
 ;;   :ensure t                                                                ;;
 ;;   :after lsp-mode company)                                                 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 
 (leaf git-gutter
   :doc "Port of Sublime Text plugin GitGutter"
@@ -468,22 +470,86 @@
 (leaf elixir-mode
   :commands elixir-mode)
 
-(leaf go
-  :hook ((go-mode-hook . company-mode)
-         (go-mode-hook . flycheck-mode))
-  :setq ((gofmt-command . "goimports"))
+(leaf yasnippet
+  :doc "Yet another snippet extension for Emacs"
+  :req "cl-lib-0.5"
+  :tag "emulation" "convenience"
+  :url "http://github.com/joaotavora/yasnippet"
+  :added "2023-05-30"
+  :ensure t)
+
+;; (leaf go-mode
+;;   :doc "Major mode for the Go programming language"
+;;   :req "emacs-26.1"
+;;   :tag "go" "languages" "emacs>=26.1"
+;;   :url "https://github.com/dominikh/go-mode.el"
+;;   :added "2023-05-30"
+;;   :emacs>= 26.1
+;;   :ensure t)
+
+;; (leaf go
+;;   :mode (("\\.go$" . go-mode))
+;;   :hook ((go-mode-hook . company-mode)
+;;          (go-mode-hook . flycheck-mode)
+;;          (go-mode-hook . copilot-mode)
+;;          (go-mode-hook . lsp))
+;;   :setq ((gofmt-command . "goimports"))
+;;   :config
+;;   (lambda nil
+;;     (add-hook 'before-save-hook 'gofmt-before-save)
+;;     (local-set-key
+;;      (kbd "M-.")
+;;      'godef-jump)
+;;     (set
+;;      (make-local-variable 'company-backends)
+;;      '(company-go))
+;;               (company-mode)
+;;               (setq tab-width 2)))
+
+
+;; (setq gofmt-command "goimports")
+;; (add-hook 'before-save-hook 'gofmt-before-save)
+
+(leaf leaf-convert
   :config
   (add-hook 'go-mode-hook
             (lambda nil
+              (setq gofmt-command "goimports")
               (add-hook 'before-save-hook 'gofmt-before-save)
+              (set
+               (make-local-variable 'compile-command)
+               "go build -v && go test -v && go vet")
               (local-set-key
                (kbd "M-.")
-               'godef-jump)
-              (set
-               (make-local-variable 'company-backends)
-               '(company-go))
-              (company-mode)
-              (setq tab-width 2))))
+               'godef-jump))
+            ;;(go-eldoc-setup)
+            ))
+
+(yas-global-mode 1)
+
+(leaf copilot
+  :el-get (copilot
+           :type github
+           :pkgname "zerolfx/copilot.el"
+           )
+  :config
+  (leaf editorconfig
+    :ensure t
+    )
+  (leaf s
+    :ensure t
+    )
+  (leaf dash
+    :ensure t
+    )
+  (defun my/copilot-tab ()
+    (interactive)
+    (or (copilot-accept-completion)
+        (indent-for-tab-command)))
+
+  (with-eval-after-load 'copilot
+    (define-key copilot-mode-map (kbd "<tab>") #'my/copilot-tab))
+  )
 
 (leaf javascript
   :mode (("\\.js$" . rjsx-mode)
@@ -510,14 +576,6 @@
 (leaf pandoc
   :when (executable-find "pandoc")
   :setq ((markdown-command . "pandoc -s --self-contained -t html5 -c ~/.pandoc/github-markdown.css")))
-
-(leaf yasnippet
-  :doc "Yet another snippet extension for Emacs"
-  :req "cl-lib-0.5"
-  :tag "emulation" "convenience"
-  :added "2020-10-07"
-  :url "http://github.com/joaotavora/yasnippet"
-  :ensure t)
 
 (leaf rspec-mode
   :doc "Enhance ruby-mode for RSpec"
