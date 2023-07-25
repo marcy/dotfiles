@@ -506,7 +506,45 @@
    '(company-go))
   (company-mode))
 
+(leaf gotest
+  :doc "Launch GO unit tests"
+  :req "emacs-24.3" "s-1.11.0" "f-0.19.0"
+  :tag "tests" "go" "languages" "emacs>=24.3"
+  :url "https://github.com/nlamirault/gotest.el"
+  :added "2023-06-27"
+  :emacs>= 24.3
+  :ensure t)
 
+(leaf protobuf-mode
+  :doc "major mode for editing protocol buffers."
+  :tag "languages" "protobuf" "google"
+  :added "2023-06-20"
+  :ensure t)
+
+(leaf dired-sidebar
+  :doc "Tree browser leveraging dired"
+  :req "emacs-25.1" "dired-subtree-0.0.1"
+  :tag "tools" "files" "dired" "emacs>=25.1"
+  :url "https://github.com/jojojames/dired-sidebar"
+  :added "2023-06-27"
+  :emacs>= 25.1
+  :ensure t
+  :after dired-subtree
+  :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
+  :commands (dired-sidebar-toggle-sidebar)
+  :init
+  (add-hook 'dired-sidebar-mode-hook
+            (lambda ()
+              (unless (file-remote-p default-directory)
+                (auto-revert-mode))))
+  :config
+  (push 'toggle-window-split dired-sidebar-toggle-hidden-commands)
+  (push 'rotate-windows dired-sidebar-toggle-hidden-commands)
+
+  (setq dired-sidebar-subtree-line-prefix "__")
+  (setq dired-sidebar-theme 'vscode)
+  (setq dired-sidebar-use-term-integration t)
+  (setq dired-sidebar-use-custom-font t))
 
 (leaf copilot
   :el-get (copilot
