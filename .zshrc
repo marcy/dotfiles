@@ -32,6 +32,9 @@ setopt share_history         # ヒストリの共有の有効化
 
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完時に大文字小文字を区別しない
 
+export PATH=/opt/homebrew/bin/:$PYENV_ROOT/bin:$HOME/.cabal/bin:$HOME/bin:/usr/local/bin:/bin:/sbin:/usr/sbin:/usr/bin:$PATH:$HOME/Dropbox/bin:$HOME/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/share/google-cloud-sdk/bin/:
+export PATH="$(aqua root-dir)/bin:$PATH"
+
 export LANG=ja_JP.UTF-8
 export LC_ALL=ja_JP.UTF-8
 export LC_CTYPE=C
@@ -42,8 +45,6 @@ export BUNDLER_EDITOR="emacsclient -n"
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 export CPPFLAGS="-I/usr/local/opt/openjdk/include"
 export NODE_OPTIONS="--max-old-space-size=4096"
-export PATH=/opt/homebrew/bin/:$PYENV_ROOT/bin:$HOME/.cabal/bin:$HOME/bin:/usr/local/bin:/bin:/sbin:/usr/sbin:/usr/bin:$PATH:$HOME/Dropbox/bin:$HOME/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/share/google-cloud-sdk/bin/:
-export PATH="$(aqua root-dir)/bin:$PATH"
 
 HISTFILE=$HOME/Dropbox/dotfiles/.zsh-history
 HISTSIZE=10000
