@@ -888,11 +888,20 @@ See URL `http://batsov.com/rubocop/'."
   :config
   (global-auto-revert-mode 1))
 
+(leaf mwim
+  :doc "Switch between the beginning/end of line or code"
+  :tag "convenience"
+  :url "https://github.com/alezost/mwim.el"
+  :added "2023-09-28"
+  :ensure t)
+
 (leaf-keys (("C-c h" . help-for-help)
             ("C-x C-c" . server-edit)
             ("C-h" . delete-backward-char)
             ("C-@" . mark-word)
-            ("C-x l" . goto-line)))
+            ("C-x l" . goto-line)
+            ("C-a" . mwim-beginning-of-code-or-line)
+            ("C-e" . mwim-end-of-code-or-line)))
 
 (leaf leaf-convert
   :setq ((default-directory . "~/")))
