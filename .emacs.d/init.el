@@ -739,6 +739,7 @@ See URL `http://batsov.com/rubocop/'."
 
   :mode (("\\.eex$" . web-mode)
          ("\\.erb$" . web-mode)
+         ("\\.go.tmpl$" . web-mode)
          ("\\.html?$" . web-mode))
   :hook ((web-mode-hook . my-web-mode-hook)))
 
