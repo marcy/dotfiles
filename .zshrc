@@ -1,6 +1,6 @@
 # -*- mode: shell-script -*-
 
-export ZPLUG_HOME=/opt/homebrew/opt/zplug
+export ZPLUG_HOME=$HOME/.zplug
 source $ZPLUG_HOME/init.zsh
 
 zplug 'dracula/zsh', as:theme
@@ -32,8 +32,10 @@ setopt share_history         # ヒストリの共有の有効化
 
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完時に大文字小文字を区別しない
 
-export PATH=/opt/homebrew/bin/:$PYENV_ROOT/bin:$HOME/.cabal/bin:$HOME/bin:/usr/local/bin:/bin:/sbin:/usr/sbin:/usr/bin:$PATH:$HOME/Dropbox/bin:$HOME/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/share/google-cloud-sdk/bin/:
-export PATH="$(aqua root-dir)/bin:$PATH"
+export PATH=/opt/homebrew/bin/:$PYENV_ROOT/bin:$HOME/.cabal/bin:$HOME/bin:/usr/local/bin:/bin:/sbin:/usr/sbin:/usr/bin:$PATH:$HOME/Dropbox/bin:$HOME/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/share/google-cloud-sdk/bin/:/home/linuxbrew/.linuxbrew/bin/:
+if command -v aqua 1>/dev/null 2>&1; then
+    export PATH="$(aqua root-dir)/bin:$PATH"
+fi
 
 export LANG=ja_JP.UTF-8
 export LC_ALL=ja_JP.UTF-8
