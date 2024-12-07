@@ -37,12 +37,6 @@
 (leaf cus-start
   :doc "define customization properties of builtins"
   :tag "builtin" "internal"
-;  :preface
-;  (defun c/redraw-frame nil
-;    (interactive)
-;    (redraw-frame))
-
-;  :bind (("M-ESC ESC" . c/redraw-frame))
   :custom '((user-full-name . "Masashi Oyamada")
             (user-mail-address . "masashi.oyamada@gmail.com")
             (history-length . t)
@@ -67,12 +61,6 @@
 (leaf leaf-convert
   :hook ((before-save-hook . delete-trailing-whitespace)))
 
-;; (leaf Dash
-;;   :doc "A modern list library for Emacs"
-;;   :tag "lists"
-;;   :added "2020-08-28"
-;;   :ensure t)
-
 (leaf delsel
   :doc "delete selection if you insert"
   :tag "builtin"
@@ -92,33 +80,13 @@
   :url "https://github.com/knu/elscreen"
   :emacs>= 24
   :ensure t
-  :custom-face ((elscreen-tab-background-face quote
-                                              ((t
-                                                (:background "gray10"))))
-                (elscreen-tab-control-face quote
-                                           ((t
-                                             (:background "gray10" :foreground "gray60"))))
-                (elscreen-tab-current-screen-face quote
-                                                  ((t
-                                                    (:background "gray75" :foreground "black"))))
-                (elscreen-tab-other-screen-face quote
-                                                ((t
-                                                  (:background "gray30" :foreground "gray80")))))
+  :custom-face ((elscreen-tab-background-face quote ((t (:background "gray10"))))
+                (elscreen-tab-control-face quote ((t (:background "gray10" :foreground "gray60"))))
+                (elscreen-tab-current-screen-face quote ((t (:background "gray75" :foreground "black"))))
+                (elscreen-tab-other-screen-face quote ((t (:background "gray30" :foreground "gray80")))))
   :config
   (elscreen-start)
   (elscreen-set-prefix-key "\C-t"))
-
-(leaf terraform-mode
-  :doc "Major mode for terraform configuration file"
-  :req "emacs-24.3" "hcl-mode-0.3"
-  :tag "emacs>=24.3"
-  :added "2020-09-07"
-  :url "https://github.com/syohex/emacs-terraform-mode"
-  :emacs>= 24.3
-  :ensure t
-  :after hcl-mode
-  :config
-  (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode))
 
 (leaf exec-path-from-shell
   :doc "Get environment variables such as $PATH from the shell"
@@ -141,31 +109,6 @@
   ((scratch-ext-log-directory . "~/Dropbox/junk/")
    (scratch-ext-log-name-format . "%Y/%m-%d-%H%M%S.scratch.txt"))
   :require t)
-
-(leaf sequential-command
-  :doc "Many commands into one command"
-  :tag "lisp" "convenience"
-  :added "2020-08-28"
-  :url "http://www.emacswiki.org/cgi-bin/wiki/download/sequential-command.el"
-  :ensure t
-  :init
-  (leaf sequential-command-config
-    :doc "Examples of sequential-command.el"
-    :tag "out-of-MELPA" "convenience" "extensions"
-    :added "2020-08-28"
-    :url "http://www.emacswiki.org/cgi-bin/wiki/download/sequential-command-config.el"
-    :require t
-    :config
-    (sequential-command-setup-keys)))
-
-(leaf auto-sudoedit
-  :doc "Auto sudo edit by tramp"
-  :req "emacs-24.4" "f-0.19.0"
-  :tag "emacs>=24.4"
-  :added "2020-08-28"
-  :url "https://github.com/ncaq/auto-sudoedit"
-  :emacs>= 24.4
-  :ensure t)
 
 (leaf font
   :when (eq window-system 'mac)
@@ -209,9 +152,7 @@
   :config
   (defun toggle-moccur-use-migemo ()
     (interactive)
-    (setq moccur-use-migemo (if moccur-use-migemo
-                                nil
-                              t))
+    (setq moccur-use-migemo (if moccur-use-migemo nil t))
     (message "%s" moccur-use-migemo)))
 
 (leaf helm
@@ -224,11 +165,6 @@
   :require t
   :ensure t
   :init
-  ;;(leaf helm-config
-  ;;  :doc "Applications library for `helm.el'"
-  ;;  :tag "out-of-MELPA"
-  ;;  :added "2020-08-31"
-  ;;  :require t)
   (leaf helm-ghq
     :doc "Ghq with helm interface"
     :req "emacs-24" "helm-2.2.0"
@@ -307,10 +243,8 @@
         session-globals-include '((kill-ring 500)
                                   (session-file-alist 500 t)
                                   (file-name-history 10000)))
-
   ;; これがないと file-name-history に500個保存する前に max-string に達する
   (setq session-globals-max-string 2048)
-
   ;; デフォルトでは30!
   (add-hook 'after-init-hook 'session-initialize))
 
@@ -318,11 +252,8 @@
   :setq ((whitespace-style quote
                            (face tabs tab-mark spaces space-mark trailing space-before-tab space-after-tab::space))
          (whitespace-space-regexp . "\\(　+\\)")
-         (whitespace-display-mappings quote
-                                      ((space-mark 12288
-                                                   [9633])
-                                       (tab-mark 9
-                                                 [187 9]))))
+         (whitespace-display-mappings quote ((space-mark 12288 [9633])
+                                             (tab-mark 9 [187 9]))))
   :config
   (global-whitespace-mode t)
   (set-face-attribute 'whitespace-trailing nil :foreground "DeepPink" :underline t)
@@ -360,28 +291,15 @@
   :custom ((company-idle-delay . 0)
            (company-minimum-prefix-length . 2)
            (company-selection-wrap-around . t))
-  :bind ((company-active-map
-          ("C-n" . company-select-next))
-         (company-active-map
-          ("C-p" . company-select-previous))
-         (company-search-map
-          ("C-n" . company-select-next))
-         (company-search-map
-          ("C-p" . company-select-previous))
-         (company-active-map
-          ("C-s" . company-filter-candidates))
-         (company-active-map
-          ("C-i" . company-complete-selection))
-         (emacs-lisp-mode-map
-          ("C-M-i" . company-complete)))
+  :bind ((company-active-map ("C-n" . company-select-next))
+         (company-active-map ("C-p" . company-select-previous))
+         (company-search-map ("C-n" . company-select-next))
+         (company-search-map ("C-p" . company-select-previous))
+         (company-active-map ("C-s" . company-filter-candidates))
+         (company-active-map ("C-i" . company-complete-selection))
+         (emacs-lisp-mode-map ("C-M-i" . company-complete)))
   :config
   (global-company-mode t)
-
-  ;; 自動補完を offにしたい場合は, company-idle-delayを nilに設定する
-  ;; auto-completeでいうところの ac-auto-start にあたる.
-  ;; (custom-set-variables
-  ;;  '(company-idle-delay nil))
-
   (set-face-attribute 'company-tooltip nil
                       :foreground "black" :background "lightgrey")
   (set-face-attribute 'company-tooltip-common nil
@@ -397,31 +315,6 @@
   (set-face-attribute 'company-scrollbar-bg nil
                        :background "gray40"))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (leaf company-lsp                                                          ;;
-;;   :doc "Company completion backend for lsp-mode."                          ;;
-;;   :req "emacs-25.1" "lsp-mode-6.0" "company-0.9.0" "s-1.2.0" "dash-2.11.0" ;;
-;;   :tag "emacs>=25.1"                                                       ;;
-;;   :added "2020-11-02"                                                      ;;
-;;   :url "https://github.com/tigersoldier/company-lsp"                       ;;
-;;   :emacs>= 25.1                                                            ;;
-;;   :ensure t                                                                ;;
-;;   :after lsp-mode company)                                                 ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-
-(leaf git-gutter
-  :doc "Port of Sublime Text plugin GitGutter"
-  :req "emacs-24.3"
-  :tag "emacs>=24.3"
-  :added "2020-08-28"
-  :url "https://github.com/emacsorphanage/git-gutter"
-  :emacs>= 24.3
-  :ensure t
-  :config
-  (global-git-gutter-mode t)
-  (add-hook 'ruby-mode-hook 'git-gutter-mode))
 
 (leaf magit
   :doc "A Git porcelain inside Emacs."
@@ -433,148 +326,6 @@
   :after git-commit with-editor
   :custom
   ((magit-status-buffer-switch-function quote switch-to-buffer)))
-
-(leaf vc-annotate
-  :preface
-  (defun vc-annotate-open-pr-at-line nil
-    (interactive)
-    (let* ((rev-at-line (vc-annotate-extract-revision-at-line))
-           (rev (car rev-at-line)))
-      (shell-command
-       (concat "open-pr-from-commit " rev))))
-
-  :bind ((vc-annotate-mode-map
-          ("P" . vc-annotate-open-pr-at-line)))
-  :require vc-annotate)
-
-(leaf scss-custom
-  :mode (("\\.scss$" . scss-mode)
-         ("\\.css$" . scss-mode))
-
-  :preface
-  (defun scss-custom nil
-    "scss-mode-hook"
-    (and
-     (set
-      (make-local-variable 'css-indent-offset)
-      2)
-     (set
-      (make-local-variable 'scss-compile-at-save)
-      nil)))
-
-  :config
-  (add-hook 'scss-mode-hook
-            '(lambda nil
-               (scss-custom))))
-
-(leaf elixir-mode
-  :commands elixir-mode)
-
-(leaf yasnippet
-  :doc "Yet another snippet extension for Emacs"
-  :req "cl-lib-0.5"
-  :tag "emulation" "convenience"
-  :url "http://github.com/joaotavora/yasnippet"
-  :added "2023-05-30"
-  :ensure t
-  :config
-  (yas-global-mode 1))
-
-
-(leaf go-mode
-  :doc "Major mode for the Go programming language"
-  :req "emacs-26.1"
-  :tag "go" "languages" "emacs>=26.1"
-  :url "https://github.com/dominikh/go-mode.el"
-  :added "2023-05-30"
-  :emacs>= 26.1
-  :ensure t
-  :mode (("\\.go$" . go-mode))
-  :hook ((before-save-hook . gofmt-before-save)
-         (go-mode-hook . company-mode)
-         (go-mode-hook . flycheck-mode)
-         (go-mode-hook . copilot-mode)
-         (go-mode-hook . lsp))
-  :init (setq gofmt-command "goimports")
-  :setq ((tab-width . 2))
-  :config
-  (local-set-key
-   (kbd "M-.")
-   'godef-jump)
-  (set
-   (make-local-variable 'company-backends)
-   '(company-go))
-  (company-mode))
-
-(leaf gotest
-  :doc "Launch GO unit tests"
-  :req "emacs-24.3" "s-1.11.0" "f-0.19.0"
-  :tag "tests" "go" "languages" "emacs>=24.3"
-  :url "https://github.com/nlamirault/gotest.el"
-  :added "2023-06-27"
-  :emacs>= 24.3
-  :ensure t)
-
-(leaf protobuf-mode
-  :doc "major mode for editing protocol buffers."
-  :tag "languages" "protobuf" "google"
-  :added "2023-06-20"
-  :ensure t)
-
-(leaf dired-sidebar
-  :doc "Tree browser leveraging dired"
-  :req "emacs-25.1" "dired-subtree-0.0.1"
-  :tag "tools" "files" "dired" "emacs>=25.1"
-  :url "https://github.com/jojojames/dired-sidebar"
-  :added "2023-06-27"
-  :emacs>= 25.1
-  :ensure t
-  :after dired-subtree
-  :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
-  :commands (dired-sidebar-toggle-sidebar)
-  :init
-  (add-hook 'dired-sidebar-mode-hook
-            (lambda ()
-              (unless (file-remote-p default-directory)
-                (auto-revert-mode))))
-  :config
-  (push 'toggle-window-split dired-sidebar-toggle-hidden-commands)
-  (push 'rotate-windows dired-sidebar-toggle-hidden-commands)
-
-  (setq dired-sidebar-subtree-line-prefix "__")
-  (setq dired-sidebar-theme 'vscode)
-  (setq dired-sidebar-use-term-integration t)
-  (setq dired-sidebar-use-custom-font t))
-
-(leaf copilot
-  :el-get (copilot
-           :type github
-           :pkgname "zerolfx/copilot.el"
-           )
-  :config
-  (leaf editorconfig
-    :ensure t
-    )
-  (leaf s
-    :ensure t
-    )
-  (leaf dash
-    :ensure t
-    )
-  (defun my/copilot-tab ()
-    (interactive)
-    (or (copilot-accept-completion)
-        (indent-for-tab-command)))
-
-  (with-eval-after-load 'copilot
-    (define-key copilot-mode-map (kbd "<tab>") #'my/copilot-tab))
-  )
-
-(leaf javascript
-  :mode (("\\.js$" . rjsx-mode)
-         ("\\.coffee$" . coffee-mode)
-         ("Cakefile" . coffee-mode))
-  :setq ((js-indent-level . 2)))
 
 (leaf markdown-mode
   :doc "Major mode for Markdown-formatted text"
@@ -591,10 +342,6 @@
                                 (list
                                  '("\\.md" . markdown-mode)
                                  '("\\.markdown" . markdown-mode)))))
-
-(leaf pandoc
-  :when (executable-find "pandoc")
-  :setq ((markdown-command . "pandoc -s --self-contained -t html5 -c ~/.pandoc/github-markdown.css")))
 
 (leaf rspec-mode
   :doc "Enhance ruby-mode for RSpec"
@@ -724,25 +471,6 @@ See URL `http://batsov.com/rubocop/'."
   :ensure t
   :setq ((open-junk-file-directory . "~/Dropbox/junk/%Y/%m-%d-%H%M%S.")))
 
-(leaf web-mode
-  :doc "major mode for editing web templates"
-  :req "emacs-23.1"
-  :tag "languages" "emacs>=23.1"
-  :added "2020-08-28"
-  :url "http://web-mode.org"
-  :emacs>= 23.1
-  :ensure t
-  :preface
-  (defun my-web-mode-hook nil
-    "Hooks for Web mode."
-    (setq web-mode-markup-indent-offset 2))
-
-  :mode (("\\.eex$" . web-mode)
-         ("\\.erb$" . web-mode)
-         ("\\.go.tmpl$" . web-mode)
-         ("\\.html?$" . web-mode))
-  :hook ((web-mode-hook . my-web-mode-hook)))
-
 (leaf ag
   :doc "A front-end for ag ('the silver searcher'), the C ack replacement."
   :req "dash-2.8.0" "s-1.9.0" "cl-lib-0.5"
@@ -800,72 +528,6 @@ See URL `http://batsov.com/rubocop/'."
   :emacs>= 24.1
   :ensure t)
 
-(leaf make-file-executable
-  :preface
-  (defun make-file-executable nil
-    "Make the file of this buffer executable, when it is a script source."
-    (save-restriction
-      (widen)
-      (if (string= "#!"
-                   (buffer-substring-no-properties 1
-                                                   (min 3
-                                                        (point-max))))
-          (let ((name (buffer-file-name)))
-            (or
-             (equal 46
-                    (string-to-char
-                     (file-name-nondirectory name)))
-             (let ((mode (file-modes name)))
-               (set-file-modes name
-                               (logior mode
-                                       (logand
-                                        (/ mode 4)
-                                        73)))
-               (message
-                (concat "Wrote " name " (+x)"))))))))
-
-  :hook ((after-save-hook . make-file-executable)))
-
-(leaf smart-jump
-  :doc "Smart go to definition."
-  :req "emacs-25.1" "dumb-jump-0.5.1"
-  :tag "tools" "emacs>=25.1"
-  :added "2020-08-28"
-  :url "https://github.com/jojojames/smart-jump"
-  :emacs>= 25.1
-  :ensure t
-  :after dumb-jump
-  :setq ((dumb-jump-default-project . "")
-         (dumb-jump-force-searcher . 'ag))
-  :config
-  (dumb-jump-mode t)
-  (smart-jump-setup-default-registers))
-
-(leaf migemo
-  :doc "Japanese incremental search through dynamic pattern expansion"
-  :req "cl-lib-0.5"
-  :added "2020-08-28"
-  :url "https://github.com/emacs-jp/migemo"
-  :ensure t
-  :setq ((migemo-command . "cmigemo")
-         (migemo-options . '("-q" "--emacs"))
-         (migemo-dictionary . "/usr/local/share/migemo/utf-8/migemo-dict")
-         (migemo-user-dictionary . nil)
-         (migemo-regex-dictionary . nil)
-         (migemo-coding-system . 'utf-8-unix))
-  :config
-  (when (file-exists-p "/usr/local/share/migemo/utf-8/migemo-dict")
-    (load-library "migemo")
-    (migemo-init)))
-
-(leaf github-browse-file
-  :doc "View the file you're editing on GitHub"
-  :req "cl-lib-0.5"
-  :tag "github" "git" "vc" "convenience"
-  :added "2020-09-30"
-  :url "https://github.com/osener/github-browse-file"
-  :ensure t)
-
 (leaf recentf
   :doc "setup a menu of recently opened files"
   :tag "builtin"
@@ -875,33 +537,16 @@ See URL `http://batsov.com/rubocop/'."
   :config
   (recentf-mode t))
 
-(leaf typescript-mode
-  :doc "Major mode for editing typescript"
-  :req "emacs-24.3"
-  :tag "languages" "typescript" "emacs>=24.3"
-  :added "2020-10-23"
-  :url "http://github.com/ananthakumaran/typescript.el"
-  :emacs>= 24.3
-  :ensure t)
 
 (leaf leaf-convert
   :config
   (global-auto-revert-mode 1))
 
-(leaf mwim
-  :doc "Switch between the beginning/end of line or code"
-  :tag "convenience"
-  :url "https://github.com/alezost/mwim.el"
-  :added "2023-09-28"
-  :ensure t)
-
 (leaf-keys (("C-c h" . help-for-help)
             ("C-x C-c" . server-edit)
             ("C-h" . delete-backward-char)
             ("C-@" . mark-word)
-            ("C-x l" . goto-line)
-            ("C-a" . mwim-beginning-of-code-or-line)
-            ("C-e" . mwim-end-of-code-or-line)))
+            ("C-x l" . goto-line)))
 
 (leaf leaf-convert
   :setq ((default-directory . "~/")))
