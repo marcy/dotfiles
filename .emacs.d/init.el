@@ -72,21 +72,27 @@
   :custom ((show-paren-delay . 0.1))
   :global-minor-mode show-paren-mode)
 
-(leaf elscreen
-  :doc "Emacs window session manager"
-  :req "emacs-24"
-  :tag "convenience" "window" "emacs>=24"
-  :added "2020-08-28"
-  :url "https://github.com/knu/elscreen"
-  :emacs>= 24
-  :ensure t
-  :custom-face ((elscreen-tab-background-face quote ((t (:background "gray10"))))
-                (elscreen-tab-control-face quote ((t (:background "gray10" :foreground "gray60"))))
-                (elscreen-tab-current-screen-face quote ((t (:background "gray75" :foreground "black"))))
-                (elscreen-tab-other-screen-face quote ((t (:background "gray30" :foreground "gray80")))))
+(leaf tab-bar
+  :doc "frame-local tabs with named persistent window configurations"
+  :tag "builtin"
+  :added "2024-12-09"
   :config
-  (elscreen-start)
-  (elscreen-set-prefix-key "\C-t"))
+  (global-unset-key (kbd "C-t"))
+  (define-prefix-command 'my-tab-bar-map)
+  (global-set-key (kbd "C-t") 'my-tab-bar-map)
+
+  (define-key my-tab-bar-map (kbd "c") 'tab-new)
+  (define-key my-tab-bar-map (kbd "k") 'tab-close)
+  (define-key my-tab-bar-map (kbd "n") 'tab-next)
+  (define-key my-tab-bar-map (kbd "p") 'tab-previous)
+  (dotimes (i 9)
+    (define-key my-tab-bar-map (kbd (number-to-string (1+ i)))
+                `(lambda () (interactive) (tab-bar-select-tab ,(1+ i)))))
+
+  (custom-set-faces
+   '(tab-bar ((t (:background "gray10"))))
+   '(tab-bar-tab ((t (:background "gray75" :foreground "black" :box nil))))
+   '(tab-bar-tab-inactive ((t (:background "gray30" :foreground "gray80" :box nil))))))
 
 (leaf exec-path-from-shell
   :doc "Get environment variables such as $PATH from the shell"
