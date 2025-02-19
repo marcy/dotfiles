@@ -1,6 +1,6 @@
 # -*- mode: shell-script -*-
 
-export ZPLUG_HOME=$HOME/.zplug
+export ZPLUG_HOME=/opt/homebrew/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
 zplug 'dracula/zsh', as:theme
@@ -57,7 +57,7 @@ function history-all { \history -E 1 }
 alias cp='cp -i'
 alias diff='colordiff'
 alias du='dust'
-alias ls='exa'
+#alias ls='exa'
 alias mv='mv -i'
 alias peco='peco --layout=bottom-up'
 alias ps='procs'

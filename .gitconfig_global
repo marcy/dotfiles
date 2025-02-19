@@ -1,9 +1,11 @@
 [include]
         path = ./.themes.gitconfig
 [push]
-	autoSetupRemote = true
+       autoSetupRemote = true
 [alias]
+        ci = commit
         co = checkout
+        st = status -sb
         delete-merged-branches = !git branch --merged | grep -v \\* | grep -v "master$" | grep -v "develop$" | xargs -I % git branch -d %
         delete-merged-branches-dryrun = !git branch --merged | grep -v \\* | grep -v "master$" | grep -v "develop$"
 [core]

@@ -57,9 +57,29 @@
   :config
   (server-start))
 
-;; ファイル保存時に行末の空行消す
 (leaf leaf-convert
-  :hook ((before-save-hook . delete-trailing-whitespace)))
+  :hook ((before-save-hook . delete-trailing-whitespace)) ;; ファイル保存時に行末の空行消す
+  :setq
+  (default-directory . "~/"))
+
+(leaf-keys (("C-c h" . help-for-help)
+            ("C-x C-c" . server-edit)
+            ("C-h" . delete-backward-char)
+            ("C-@" . mark-word)
+            ("C-x l" . goto-line)))
+
+(leaf leaf
+  :config
+  (leaf leaf-convert :ensure t)
+  (leaf leaf-tree
+    :ensure t
+    :custom ((imenu-list-size . 30)
+             (imenu-list-position . 'left))))
+
+(leaf autorevert
+  :doc "revert buffers when files on disk change"
+  :tag "builtin"
+  :added "2025-02-19")
 
 (leaf delsel
   :doc "delete selection if you insert"
@@ -543,31 +563,22 @@ See URL `http://batsov.com/rubocop/'."
   :config
   (recentf-mode t))
 
-
-(leaf leaf-convert
-  :config
-  (global-auto-revert-mode 1))
-
-(leaf-keys (("C-c h" . help-for-help)
-            ("C-x C-c" . server-edit)
-            ("C-h" . delete-backward-char)
-            ("C-@" . mark-word)
-            ("C-x l" . goto-line)))
-
-(leaf leaf-convert
-  :setq ((default-directory . "~/")))
-
-(leaf leaf
-  :config
-  (leaf leaf-convert :ensure t)
-  (leaf leaf-tree
-    :ensure t
-    :custom ((imenu-list-size . 30)
-             (imenu-list-position . 'left))))
-
 (leaf macrostep
   :ensure t
   :bind (("C-c e" . macrostep-expand)))
+
+(leaf org
+  :doc "Outline-based notes management and organizer"
+  :tag "builtin"
+  :added "2025-01-07"
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((ruby . t) (shell . t)))
+  (setq org-capture-templates
+        '(("n" "Note" entry (file+headline "~/ownCloud/Org/notes.org" "Notes")
+           "* %?\nEntered on %U\n %i\n %a")
+          )))
 
 (provide 'init)
 (put 'upcase-region 'disabled nil)
