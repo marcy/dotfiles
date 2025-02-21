@@ -41,3 +41,7 @@ function fish_user_key_bindings
   bind \cr peco_select_history
   bind \co peco_bundle_open
 end
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+set --export --prepend PATH "/Users/oyamada/.rd/bin"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)

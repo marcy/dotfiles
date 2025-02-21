@@ -170,3 +170,40 @@ if [ -f '/Users/oyamada/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/o
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/oyamada/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# pnpm
+export PNPM_HOME="/Users/oyamada/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+function coe-console() {
+  saml2aws login -a "coe-$1"
+  console_task_arn=$(aws ecs list-tasks --service-name coe-console --cluster contract-one-entry --query "taskArns[0]" --output text --profile "coe-$1" --region ap-northeast-1)
+  aws ecs execute-command \
+    --profile "coe-$1" \
+    --region ap-northeast-1 \
+    --cluster contract-one-entry \
+    --task "${console_task_arn}" \
+    --container console \
+    --interactive \
+    --command "bash"
+}
+
+function cosmos-console() {
+    saml2aws login -a "coe-$1"
+    aws ecs execute-command \
+        --cluster cosmos \
+        --task $(aws ecs list-tasks --region ap-northeast-1 --cluster cosmos --service-name console --query taskArns --output text --region ap-northeast-1 --profile "coe-$1") \
+        --container app \
+        --interactive \
+        --command "/bin/bash" \
+        --region ap-northeast-1 \
+        --profile "coe-$1"
+}
