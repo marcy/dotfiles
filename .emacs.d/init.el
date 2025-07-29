@@ -124,7 +124,7 @@
   ;; 数字キーによるタブ選択
   (dotimes (i 9)
     (define-key my-tab-bar-map (kbd (number-to-string (1+ i)))
-      `(lambda () (interactive) (tab-bar-select-tab ,(1+ i)))))
+                `(lambda () (interactive) (tab-bar-select-tab ,(1+ i)))))
   (custom-set-faces
    '(tab-bar ((t (:background "gray10"))))
    '(tab-bar-tab ((t (:background "gray75" :foreground "black" :box nil))))
@@ -154,11 +154,11 @@
 ;; フォント・テーマ設定
 ;; ------------------------------------------------------------
 (leaf font
-  :when (eq window-system 'mac)
+  :when (memq window-system '(mac ns))
   :config
   (let* ((size 16)
-         (asciifont "Cica")
-         (jpfont "Cica")
+         (asciifont "UDEV Gothic")
+         (jpfont "UDEV Gothic")
          (h (* size 10))
          (fontspec (font-spec :family asciifont))
          (jp-fontspec (font-spec :family jpfont)))
@@ -333,7 +333,7 @@
 (leaf magit
   :doc "Emacs 内で Git を操作"
   :req "emacs-25.1" "async-20200113" "dash-20200524" "git-commit-20200516"
-       "transient-20200601" "with-editor-20200522"
+  "transient-20200601" "with-editor-20200522"
   :tag "vc" "tools" "git" "emacs>=25.1"
   :added "2020-08-28"
   :emacs>= 25.1
@@ -421,8 +421,9 @@
   (setq ruby-block-highlight-toggle t)
   ;; シンボルハイライトの色設定
   (setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
-  (eval-after-load 'rspec-mode
-    '(rspec-install-snippets)))
+  ;; (eval-after-load 'rspec-mode
+  ;;  '(rspec-install-snippets)))
+  )
 
 (leaf rspec-mode
   :doc "RSpec 用の拡張 (Ruby)"
