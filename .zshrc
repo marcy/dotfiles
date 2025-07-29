@@ -32,7 +32,7 @@ setopt share_history         # ヒストリの共有の有効化
 
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完時に大文字小文字を区別しない
 
-export PATH=/opt/homebrew/bin/:$PYENV_ROOT/bin:$HOME/.cabal/bin:$HOME/bin:/usr/local/bin:/bin:/sbin:/usr/sbin:/usr/bin:$PATH:$HOME/Dropbox/bin:$HOME/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/share/google-cloud-sdk/bin/:/home/linuxbrew/.linuxbrew/bin/:
+export PATH=/opt/homebrew/bin/:/opt/homebrew/sbin:$PYENV_ROOT/bin:$HOME/.cabal/bin:$HOME/bin:/usr/local/bin:/bin:/sbin:/usr/sbin:/usr/bin:$PATH:$HOME/Dropbox/bin:$HOME/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/share/google-cloud-sdk/bin/:/home/linuxbrew/.linuxbrew/bin/:
 if command -v aqua 1>/dev/null 2>&1; then
     export PATH="$(aqua root-dir)/bin:$PATH"
 fi
@@ -64,8 +64,8 @@ alias ps='procs'
 alias r='bundle exec rails'
 alias rm='rm -i'
 alias note='code ~/Dropbox/junk'
-alias e='open -a /opt/homebrew/opt/emacs-mac/Emacs.app'
-alias ec='emacsclient -n'
+alias e='open -a /Applications/Emacs.app'
+alias ec='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient'
 
 # グローバルエイリアス
 alias -g G='| grep'
@@ -111,7 +111,7 @@ function do_enter() {
     fi
     # ls を表示
     echo
-    ls
+    ls -F
     # git status を表示
     # ls_abbrev
     if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = 'true' ]; then
@@ -182,28 +182,3 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
-
-function coe-console() {
-  saml2aws login -a "coe-$1"
-  console_task_arn=$(aws ecs list-tasks --service-name coe-console --cluster contract-one-entry --query "taskArns[0]" --output text --profile "coe-$1" --region ap-northeast-1)
-  aws ecs execute-command \
-    --profile "coe-$1" \
-    --region ap-northeast-1 \
-    --cluster contract-one-entry \
-    --task "${console_task_arn}" \
-    --container console \
-    --interactive \
-    --command "bash"
-}
-
-function cosmos-console() {
-    saml2aws login -a "coe-$1"
-    aws ecs execute-command \
-        --cluster cosmos \
-        --task $(aws ecs list-tasks --region ap-northeast-1 --cluster cosmos --service-name console --query taskArns --output text --region ap-northeast-1 --profile "coe-$1") \
-        --container app \
-        --interactive \
-        --command "/bin/bash" \
-        --region ap-northeast-1 \
-        --profile "coe-$1"
-}
