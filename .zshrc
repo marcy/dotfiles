@@ -32,7 +32,7 @@ setopt share_history         # ヒストリの共有の有効化
 
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完時に大文字小文字を区別しない
 
-export PATH=/opt/homebrew/bin/:/opt/homebrew/sbin:$PYENV_ROOT/bin:$HOME/.cabal/bin:$HOME/bin:/usr/local/bin:/bin:/sbin:/usr/sbin:/usr/bin:$PATH:$HOME/Dropbox/bin:$HOME/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/share/google-cloud-sdk/bin/:/home/linuxbrew/.linuxbrew/bin/:
+export PATH=/opt/homebrew/bin/:/opt/homebrew/sbin:$PYENV_ROOT/bin:$HOME/.local/bin:$HOME/.cabal/bin:$HOME/bin:/usr/local/bin:/bin:/sbin:/usr/sbin:/usr/bin:$PATH:$HOME/Dropbox/bin:$HOME/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/share/google-cloud-sdk/bin/:/home/linuxbrew/.linuxbrew/bin/:
 if command -v aqua 1>/dev/null 2>&1; then
     export PATH="$(aqua root-dir)/bin:$PATH"
 fi
@@ -44,7 +44,7 @@ export EDITOR="emacs -nw -q"
 export GOPATH=$HOME
 export PYENV_ROOT="$HOME/.pyenv"
 export BUNDLER_EDITOR="emacsclient -n"
-export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@3)"
 export CPPFLAGS="-I/usr/local/opt/openjdk/include"
 export NODE_OPTIONS="--max-old-space-size=4096"
 
@@ -168,7 +168,7 @@ if [ -f '/Users/oyamada/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/oyamada
 if [ -f '/Users/oyamada/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/oyamada/google-cloud-sdk/completion.zsh.inc'; fi
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/oyamada/.rd/bin:$PATH"
+export PATH="/Users/oyamada/.orbstack/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
