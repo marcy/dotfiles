@@ -67,9 +67,9 @@
 ;; ------------------------------------------------------------
 ;; ユーティリティ・環境設定
 ;; ------------------------------------------------------------
-(leaf leaf-convert
-  :hook (before-save-hook . delete-trailing-whitespace) ;; 保存時に末尾空白を削除
-  :setq (default-directory . "~/"))
+;; 保存時に末尾空白を削除
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(setq default-directory "~/")
 
 (leaf-keys (("C-c h" . help-for-help)
             ("C-x C-c" . server-edit)
@@ -91,7 +91,8 @@
 (leaf autorevert
   :doc "ファイル変更時にバッファを自動更新"
   :tag "builtin"
-  :added "2025-02-19")
+  :added "2025-02-19"
+  :config (global-auto-revert-mode 1))
 
 (leaf delsel
   :doc "選択状態にあるときは文字入力で置換"
@@ -185,7 +186,9 @@
   (doom-themes-neotree-config)
   (doom-themes-org-config))
 
-(leaf whitespace-style
+(leaf whitespace
+  :doc "空白文字の可視化"
+  :tag "builtin"
   :config
   ;; リテラルではなく、動的にリストを生成して変数に設定する
   (setq whitespace-style (list 'face 'tabs 'tab-mark 'spaces 'space-mark 'trailing 'space-before-tab 'space-after-tab))
@@ -338,8 +341,7 @@
   :added "2020-08-28"
   :emacs>= 25.1
   :ensure t
-  :after git-commit with-editor
-  :custom ((magit-status-buffer-switch-function . switch-to-buffer)))
+  :after git-commit with-editor)
 
 ;; ------------------------------------------------------------
 ;; 言語別モード設定 (Markdown, Ruby, など)
@@ -366,64 +368,13 @@
   :doc "Ruby ファイル編集用のメジャーモード"
   :tag "builtin"
   :added "2020-08-28"
-  :init
-  (leaf ruby-block
-    :tag "out-of-MELPA"
-    :added "2020-08-28"
-    :el-get juszczakn/ruby-block
-    :require t)
-  (leaf ruby-electric
-    :doc "Ruby コードの自動補完モード"
-    :tag "ruby" "languages"
-    :added "2020-08-31"
-    :url "https://github.com/ruby/elisp-ruby-electric"
-    :ensure t
-    :config (ruby-electric-mode t))
-  :setq ((ruby-insert-encoding-magic-comment . nil))
   :config
   (autoload 'ruby-mode "ruby-mode" "Ruby source editing mode" t)
   (setq auto-mode-alist
         (append auto-mode-alist
                 '(("\\.rb\\'" . ruby-mode)
-                  ("\\.rake\\'" . ruby-mode)
-                  ("\\.racc\\'" . ruby-mode)
-                  ("\\.jbuilder\\'" . ruby-mode)
                   ("Gemfile" . ruby-mode)
-                  ("Capfile" . ruby-mode)
-                  ("Rakefile" . ruby-mode))))
-  (setq interpreter-mode-alist
-        (append '(("ruby" . ruby-mode)) interpreter-mode-alist))
-  (autoload 'run-ruby "inf-ruby" "Run an inferior Ruby process")
-  ;; Ruby インデントの改善
-  (setq ruby-deep-indent-paren-style nil)
-  (defadvice ruby-indent-line (after unindent-closing-paren activate)
-    (let ((column (current-column)) indent offset)
-      (save-excursion
-        (back-to-indentation)
-        (let ((state (syntax-ppss)))
-          (setq offset (- column (current-column)))
-          (when (and (eq (char-after) ?\))
-                     (not (zerop (car state))))
-            (goto-char (cadr state))
-            (setq indent (current-indentation)))))
-      (when indent
-        (indent-line-to indent)
-        (when (> offset 0) (forward-char offset)))))
-  (add-hook 'ruby-mode-hook
-            (lambda ()
-              (ruby-electric-mode)
-              (rspec-mode)
-              (abbrev-mode 1)
-              (ruby-block-mode t)
-              (flycheck-mode t)))
-  (add-hook 'ruby-mode-hook #'lsp)
-  (setq ruby-electric-expand-delimiters-list nil)
-  (setq ruby-block-highlight-toggle t)
-  ;; シンボルハイライトの色設定
-  (setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1"))
-  ;; (eval-after-load 'rspec-mode
-  ;;  '(rspec-install-snippets)))
-  )
+                  ("Rakefile" . ruby-mode)))))
 
 (leaf rspec-mode
   :doc "RSpec 用の拡張 (Ruby)"
