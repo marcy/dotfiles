@@ -11,15 +11,12 @@
     (setq user-emacs-directory
           (expand-file-name (file-name-directory (or load-file-name byte-compile-current-file))))))
 
-(custom-set-variables
- '(gnutls-algorithm-priority "normal:-vers-tls1.3"))
-
 (eval-and-compile
   ;; パッケージアーカイブの設定
   (customize-set-variable
-   'package-archives '(("org"   . "https://orgmode.org/elpa/")
-                       ("melpa" . "https://melpa.org/packages/")
-                       ("gnu"   . "https://elpa.gnu.org/packages/")))
+   'package-archives '(("melpa"  . "https://melpa.org/packages/")
+                       ("gnu"    . "https://elpa.gnu.org/packages/")
+                       ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
   (package-initialize)
   ;; `leaf` がなければインストール
   (unless (package-installed-p 'leaf)
@@ -53,9 +50,9 @@
             (menu-bar-mode            . nil)
             (tool-bar-mode            . nil)
             (scroll-bar-mode          . nil)
-            (indent-tabs-mode         . nil))
+            (indent-tabs-mode         . nil)
+            (use-short-answers        . t))
   :config
-  (defalias 'yes-or-no-p 'y-or-n-p)
   (defalias 'exit 'save-buffers-kill-emacs))
 
 (leaf server
@@ -82,8 +79,9 @@
   (leaf leaf-convert :ensure t)
   (leaf leaf-tree
     :ensure t
-    :custom ((imenu-list-size     . 30)
-             (imenu-list-position . 'left))))
+    :config
+    (setq imenu-list-size 30)
+    (setq imenu-list-position 'left)))
 
 ;; ------------------------------------------------------------
 ;; 組み込みのマイナーモード設定
@@ -158,8 +156,8 @@
   :when (memq window-system '(mac ns))
   :config
   (let* ((size 16)
-         (asciifont "UDEV Gothic")
-         (jpfont "UDEV Gothic")
+         (asciifont "UDEV Gothic NF")
+         (jpfont "UDEV Gothic NF")
          (h (* size 10))
          (fontspec (font-spec :family asciifont))
          (jp-fontspec (font-spec :family jpfont)))
@@ -202,7 +200,7 @@
   (set-face-attribute 'whitespace-space nil :foreground "GreenYellow" :weight 'bold))
 
 ;; ------------------------------------------------------------
-;; Helm, Company などの補完・ナビゲーションツール
+;; Helm, Corfu などの補完・ナビゲーションツール
 ;; ------------------------------------------------------------
 (leaf helm
   :doc "インクリメンタル・フレームワーク"
@@ -254,69 +252,65 @@
   (helm-mode t)
   (add-to-list 'helm-completing-read-handlers-alist '(find-alternate-file . nil))
   (setq helm-delete-minibuffer-contents-from-point t)
-  (defadvice helm-delete-minibuffer-contents (before helm-emulate-kill-line activate)
-    "Kill line in helm minibuffer."
-    (kill-new (buffer-substring (point) (field-end))))
-  (defadvice helm-ff-kill-or-find-buffer-fname (around execute-only-if-exist activate)
-    "実在する候補のみ処理を実行。"
-    (when (file-exists-p candidate)
-      ad-do-it))
-  (defadvice helm-ff-transform-fname-for-completion (around my-transform activate)
-    "パターンを変換して意図した補完を実現。"
-    (let* ((pattern (ad-get-arg 0))
-           (input-pattern (file-name-nondirectory pattern))
-           (dirname (file-name-directory pattern)))
-      (setq input-pattern (replace-regexp-in-string "\\." "\\\\." input-pattern))
-      (setq ad-return-value
-            (concat dirname
-                    (if (string-match "^\\^" input-pattern)
-                        (substring input-pattern 1)
-                      (concat ".*" input-pattern)))))))
+  (advice-add 'helm-delete-minibuffer-contents :before
+              (lambda (&rest _)
+                "Kill line in helm minibuffer."
+                (kill-new (buffer-substring (point) (field-end)))))
+  (advice-add 'helm-ff-kill-or-find-buffer-fname :around
+              (lambda (orig-fn &rest args)
+                "実在する候補のみ処理を実行。"
+                (when (and (boundp 'candidate) (file-exists-p candidate))
+                  (apply orig-fn args))))
+  (advice-add 'helm-ff-transform-fname-for-completion :around
+              (lambda (_orig-fn pattern &rest _args)
+                "パターンを変換して意図した補完を実現。"
+                (let* ((input-pattern (file-name-nondirectory pattern))
+                       (dirname (file-name-directory pattern)))
+                  (setq input-pattern (replace-regexp-in-string "\\." "\\\\." input-pattern))
+                  (concat dirname
+                          (if (string-match "^\\^" input-pattern)
+                              (substring input-pattern 1)
+                            (concat ".*" input-pattern)))))))
 
-(leaf company
-  :doc "モジュラーなテキスト補完フレームワーク"
-  :req "emacs-24.3"
-  :tag "matching" "convenience" "abbrev" "emacs>=24.3"
-  :added "2020-08-28"
-  :url "http://company-mode.github.io/"
-  :emacs>= 24.3
+(leaf corfu
+  :doc "ミニマルな補完 UI"
   :ensure t
-  :custom ((company-idle-delay         . 0)
-           (company-minimum-prefix-length . 2)
-           (company-selection-wrap-around . t))
-  :bind ((company-active-map ("C-n" . company-select-next))
-         (company-active-map ("C-p" . company-select-previous))
-         (company-search-map ("C-n" . company-select-next))
-         (company-search-map ("C-p" . company-select-previous))
-         (company-active-map ("C-s" . company-filter-candidates))
-         (company-active-map ("C-i" . company-complete-selection))
-         (emacs-lisp-mode-map ("C-M-i" . company-complete)))
-  :config
-  (global-company-mode t)
-  (set-face-attribute 'company-tooltip nil     :foreground "black" :background "lightgrey")
-  (set-face-attribute 'company-tooltip-common nil :foreground "black" :background "lightgrey")
-  (set-face-attribute 'company-tooltip-common-selection nil :foreground "white" :background "steelblue")
-  (set-face-attribute 'company-tooltip-selection nil :foreground "black" :background "steelblue")
-  (set-face-attribute 'company-preview-common nil :background nil :foreground "lightgrey" :underline t)
-  (set-face-attribute 'company-scrollbar-fg nil :background "orange")
-  (set-face-attribute 'company-scrollbar-bg nil :background "gray40"))
+  :custom ((corfu-auto        . t)
+           (corfu-auto-delay  . 0)
+           (corfu-auto-prefix . 2)
+           (corfu-cycle       . t))
+  :bind ((corfu-map ("C-n" . corfu-next))
+         (corfu-map ("C-p" . corfu-previous))
+         (corfu-map ("C-s" . corfu-insert-separator))
+         (corfu-map ("C-i" . corfu-complete)))
+  :global-minor-mode global-corfu-mode
+  :init
+  (leaf cape
+    :doc "Completion At Point Extensions"
+    :ensure t
+    :config
+    (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+    (add-to-list 'completion-at-point-functions #'cape-file)))
+
+(leaf completion-preview
+  :doc "入力中に補完候補をインラインでプレビュー"
+  :tag "builtin"
+  :global-minor-mode global-completion-preview-mode)
 
 ;; ------------------------------------------------------------
 ;; セッション管理と最近使ったファイル
 ;; ------------------------------------------------------------
-(leaf session
-  :doc "セッション間で変数やレジスタ、バッファ位置を保持"
-  :tag "tools" "data" "desktop" "session management" "session"
-  :added "2020-08-28"
-  :url "http://emacs-session.sourceforge.net/"
-  :ensure t
-  :config
-  (setq session-initialize '(de-saveplace session keys menus places)
-        session-globals-include '((kill-ring 500)
-                                  (session-file-alist 500 t)
-                                  (file-name-history 10000))
-        session-globals-max-string 2048)
-  (add-hook 'after-init-hook 'session-initialize))
+(leaf savehist
+  :doc "ミニバッファの履歴をセッション間で保持"
+  :tag "builtin"
+  :custom ((savehist-additional-variables
+            . '(kill-ring search-ring regexp-search-ring)))
+  :global-minor-mode savehist-mode)
+
+(leaf saveplace
+  :doc "前回のカーソル位置を記憶・復元"
+  :tag "builtin"
+  :global-minor-mode save-place-mode)
 
 (leaf recentf
   :doc "最近開いたファイルのメニュー"
@@ -368,13 +362,7 @@
   :doc "Ruby ファイル編集用のメジャーモード"
   :tag "builtin"
   :added "2020-08-28"
-  :config
-  (autoload 'ruby-mode "ruby-mode" "Ruby source editing mode" t)
-  (setq auto-mode-alist
-        (append auto-mode-alist
-                '(("\\.rb\\'" . ruby-mode)
-                  ("Gemfile" . ruby-mode)
-                  ("Rakefile" . ruby-mode)))))
+  :mode ("\\.rb\\'" "Gemfile" "Rakefile"))
 
 (leaf rspec-mode
   :doc "RSpec 用の拡張 (Ruby)"
@@ -458,24 +446,14 @@ See URL `http://batsov.com/rubocop/'."
   :added "2020-08-28"
   :config (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode))
 
-(leaf all-the-icons
-  :doc "開発者アイコンの挿入"
-  :req "emacs-24.3" "memoize-1.0.1"
-  :tag "lisp" "convenient" "emacs>=24.3"
-  :added "2020-08-28"
-  :url "https://github.com/domtronn/all-the-icons.el"
-  :emacs>= 24.3
+(leaf nerd-icons
+  :doc "Nerd Fonts アイコンライブラリ (all-the-icons の後継)"
   :ensure t
   :init
-  (leaf all-the-icons-dired
+  (leaf nerd-icons-dired
     :doc "dired でファイル毎にアイコン表示"
-    :req "emacs-24.4" "all-the-icons-2.2.0"
-    :tag "dired" "icons" "files" "emacs>=24.4"
-    :added "2020-08-28"
-    :url "https://github.com/jtbm37/all-the-icons-dired"
-    :emacs>= 24.4
     :ensure t
-    :config (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)))
+    :config (add-hook 'dired-mode-hook 'nerd-icons-dired-mode)))
 
 (leaf yaml-mode
   :doc "YAML ファイル用メジャーモード"
@@ -484,21 +462,6 @@ See URL `http://batsov.com/rubocop/'."
   :added "2020-08-31"
   :emacs>= 24.1
   :ensure t)
-
-;; ------------------------------------------------------------
-;; Org-mode 関連
-;; ------------------------------------------------------------
-(leaf org
-  :doc "アウトライン形式のノート管理・オーガナイザー"
-  :tag "builtin"
-  :added "2025-01-07"
-  :config
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((ruby . t) (shell . t)))
-  (setq org-capture-templates
-        '(("n" "Note" entry (file+headline "~/ownCloud/Org/notes.org" "Notes")
-           "* %?\nEntered on %U\n  %i\n  %a"))))
 
 ;; ------------------------------------------------------------
 ;; Provide
