@@ -77,14 +77,8 @@ alias -g B='`git branch | peco | sed -e "s/^\*[ ]*//g"`'
 if command -v hub 1>/dev/null 2>&1; then
     eval "$(hub alias -s)"
 fi
-if command -v rbenv 1>/dev/null 2>&1; then
-    eval "$(rbenv init - zsh)"
-fi
-if command -v nodenv 1>/dev/null 2>&1; then
-    eval "$(nodenv init -)"
-fi
-if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init --path)"
+if command -v mise 1>/dev/null 2>&1; then
+    eval "$(mise activate zsh)"
 fi
 
 if type brew &>/dev/null; then
