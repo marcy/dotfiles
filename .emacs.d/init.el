@@ -52,6 +52,7 @@
             (scroll-bar-mode          . nil)
             (indent-tabs-mode         . nil)
             (use-short-answers        . t))
+  :setq ((default-directory . "~/"))
   :config
   (defalias 'exit 'save-buffers-kill-emacs))
 
@@ -64,9 +65,10 @@
 ;; ------------------------------------------------------------
 ;; ユーティリティ・環境設定
 ;; ------------------------------------------------------------
-;; 保存時に末尾空白を削除
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-(setq default-directory "~/")
+(leaf simple
+  :doc "基本的な編集コマンド"
+  :tag "builtin"
+  :hook (before-save-hook . delete-trailing-whitespace))
 
 (leaf-keys (("C-c h" . help-for-help)
             ("C-x C-c" . server-edit)
@@ -156,15 +158,13 @@
   :when (memq window-system '(mac ns))
   :config
   (let* ((size 16)
-         (asciifont "UDEV Gothic NF")
-         (jpfont "UDEV Gothic NF")
+         (fontname "UDEV Gothic NF")
          (h (* size 10))
-         (fontspec (font-spec :family asciifont))
-         (jp-fontspec (font-spec :family jpfont)))
-    (set-face-attribute 'default nil :family asciifont :height h)
-    (set-fontset-font nil 'japanese-jisx0213.2004-1 jp-fontspec)
-    (set-fontset-font nil 'japanese-jisx0213-2 jp-fontspec)
-    (set-fontset-font nil 'katakana-jisx0201 jp-fontspec)
+         (fontspec (font-spec :family fontname)))
+    (set-face-attribute 'default nil :family fontname :height h)
+    (set-fontset-font nil 'japanese-jisx0213.2004-1 fontspec)
+    (set-fontset-font nil 'japanese-jisx0213-2 fontspec)
+    (set-fontset-font nil 'katakana-jisx0201 fontspec)
     (set-fontset-font nil '(#x0080 . #x024F) fontspec)
     (set-fontset-font nil '(#x0370 . #x03FF) fontspec)))
 
@@ -187,10 +187,10 @@
 (leaf whitespace
   :doc "空白文字の可視化"
   :tag "builtin"
+  :setq ((whitespace-space-regexp . "\\(　+\\)"))
   :config
   ;; リテラルではなく、動的にリストを生成して変数に設定する
   (setq whitespace-style (list 'face 'tabs 'tab-mark 'spaces 'space-mark 'trailing 'space-before-tab 'space-after-tab))
-  (setq whitespace-space-regexp "\\(　+\\)")
   (setq whitespace-display-mappings
         (list (list 'space-mark 12288 [9633])
               (list 'tab-mark 9 [187 9])))
@@ -351,11 +351,7 @@
   :ensure t
   :setq ((markdown-asymmetric-header . t)
          (markdown-header-scaling   . t))
-  :config
-  (setq auto-mode-alist
-        (append auto-mode-alist
-                '(("\\.md\\'" . markdown-mode)
-                  ("\\.markdown\\'" . markdown-mode)))))
+  :mode ("\\.md\\'" "\\.markdown\\'"))
 
 ;; Ruby 関連
 (leaf ruby-mode
@@ -435,16 +431,14 @@ See URL `http://batsov.com/rubocop/'."
     :url "http://github.com/mhayashi1120/Emacs-wgrep/raw/master/wgrep-ag.el"
     :ensure t
     :after wgrep
-    :config
-    (autoload 'wgrep-ag-setup "wgrep-ag")
-    (add-hook 'ag-mode-hook 'wgrep-ag-setup)
-    (define-key ag-mode-map (kbd "r") 'wgrep-change-to-wgrep-mode)))
+    :hook (ag-mode-hook . wgrep-ag-setup)
+    :bind ((ag-mode-map ("r" . wgrep-change-to-wgrep-mode)))))
 
 (leaf wdired
   :doc "dired バッファ内でファイル名を編集してリネーム"
   :tag "builtin"
   :added "2020-08-28"
-  :config (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode))
+  :bind ((dired-mode-map ("r" . wdired-change-to-wdired-mode))))
 
 (leaf nerd-icons
   :doc "Nerd Fonts アイコンライブラリ (all-the-icons の後継)"
@@ -453,7 +447,7 @@ See URL `http://batsov.com/rubocop/'."
   (leaf nerd-icons-dired
     :doc "dired でファイル毎にアイコン表示"
     :ensure t
-    :config (add-hook 'dired-mode-hook 'nerd-icons-dired-mode)))
+    :hook (dired-mode-hook . nerd-icons-dired-mode)))
 
 (leaf yaml-mode
   :doc "YAML ファイル用メジャーモード"
