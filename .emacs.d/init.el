@@ -438,7 +438,9 @@ See URL `http://batsov.com/rubocop/'."
   :doc "dired バッファ内でファイル名を編集してリネーム"
   :tag "builtin"
   :added "2020-08-28"
-  :bind ((dired-mode-map ("r" . wdired-change-to-wdired-mode))))
+  :after dired
+  :config
+  (define-key dired-mode-map "r" #'wdired-change-to-wdired-mode))
 
 (leaf nerd-icons
   :doc "Nerd Fonts アイコンライブラリ (all-the-icons の後継)"
