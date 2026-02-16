@@ -32,7 +32,7 @@ setopt share_history         # ヒストリの共有の有効化
 
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完時に大文字小文字を区別しない
 
-export PATH=/opt/homebrew/bin/:/opt/homebrew/sbin:$PYENV_ROOT/bin:$HOME/.local/bin:$HOME/.cabal/bin:$HOME/bin:/usr/local/bin:/bin:/sbin:/usr/sbin:/usr/bin:$PATH:$HOME/Dropbox/bin:$HOME/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/share/google-cloud-sdk/bin/:/home/linuxbrew/.linuxbrew/bin/:
+export PATH=/opt/homebrew/bin/:/opt/homebrew/sbin:$PYENV_ROOT/bin:$HOME/.local/bin:$HOME/.cabal/bin:$HOME/bin:/usr/local/bin:/bin:/sbin:/usr/sbin:/usr/bin:$PATH:$HOME/Dropbox/bin:$HOME/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/share/google-cloud-sdk/bin/:/home/linuxbrew/.linuxbrew/bin/:/opt/homebrew/opt/mysql-client@8.4/bin:
 if command -v aqua 1>/dev/null 2>&1; then
     export PATH="$(aqua root-dir)/bin:$PATH"
 fi
