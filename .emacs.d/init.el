@@ -338,73 +338,6 @@
   :after git-commit with-editor)
 
 ;; ------------------------------------------------------------
-;; 言語別モード設定 (Markdown, Ruby, など)
-;; ------------------------------------------------------------
-;; Markdown
-(leaf markdown-mode
-  :doc "Markdown 用のメジャーモード"
-  :req "emacs-25.1"
-  :tag "itex" "github flavored markdown" "markdown" "emacs>=25.1"
-  :added "2020-09-23"
-  :url "https://jblevins.org/projects/markdown-mode/"
-  :emacs>= 25.1
-  :ensure t
-  :setq ((markdown-asymmetric-header . t)
-         (markdown-header-scaling   . t))
-  :mode ("\\.md\\'" "\\.markdown\\'"))
-
-;; Ruby 関連
-(leaf ruby-mode
-  :doc "Ruby ファイル編集用のメジャーモード"
-  :tag "builtin"
-  :added "2020-08-28"
-  :mode ("\\.rb\\'" "Gemfile" "Rakefile"))
-
-(leaf rspec-mode
-  :doc "RSpec 用の拡張 (Ruby)"
-  :req "ruby-mode-1.0" "cl-lib-0.4"
-  :tag "ruby" "rspec"
-  :added "2020-10-07"
-  :url "http://github.com/pezra/rspec-mode"
-  :ensure t
-  :after ruby-mode)
-
-(leaf haml-mode
-  :doc "Haml ファイル用のメジャーモード"
-  :req "emacs-24" "cl-lib-0.5"
-  :tag "html" "languages" "markup" "emacs>=24"
-  :added "2021-01-14"
-  :url "https://github.com/nex3/haml-mode"
-  :emacs>= 24
-  :ensure t)
-
-(leaf flycheck
-  :doc "リアルタイム構文チェック"
-  :req "dash-2.12.1" "pkg-info-0.4" "let-alist-1.0.4" "seq-1.11" "emacs-24.3"
-  :tag "tools" "languages" "convenience" "emacs>=24.3"
-  :added "2020-08-28"
-  :url "http://www.flycheck.org"
-  :emacs>= 24.3
-  :ensure t
-  :config
-  (flycheck-define-checker ruby-rubocop
-    "Ruby の構文・スタイルチェッカー (RuboCop 使用)
-See URL `http://batsov.com/rubocop/'."
-    :command ("rubocop" "--display-cop-names" "--format" "emacs"
-              (config-file "--config" flycheck-rubocoprc)
-              (option-flag "--lint" flycheck-rubocop-lint-only)
-              "--stdin" source-original)
-    :standard-input t
-    :error-patterns
-    ((info line-start (file-name) ":" line ":" column ": C: "
-           (optional (id (one-or-more (not (any ":")))) ": ") (message) line-end)
-     (warning line-start (file-name) ":" line ":" column ": W: "
-              (optional (id (one-or-more (not (any ":")))) ": ") (message) line-end)
-     (error line-start (file-name) ":" line ":" column ": " (or "E" "F") ": "
-            (optional (id (one-or-more (not (any ":")))) ": ") (message) line-end))
-    :modes (enh-ruby-mode ruby-mode)))
-
-;; ------------------------------------------------------------
 ;; その他のツール
 ;; ------------------------------------------------------------
 (leaf open-junk-file
@@ -450,14 +383,6 @@ See URL `http://batsov.com/rubocop/'."
     :doc "dired でファイル毎にアイコン表示"
     :ensure t
     :hook (dired-mode-hook . nerd-icons-dired-mode)))
-
-(leaf yaml-mode
-  :doc "YAML ファイル用メジャーモード"
-  :req "emacs-24.1"
-  :tag "yaml" "data" "emacs>=24.1"
-  :added "2020-08-31"
-  :emacs>= 24.1
-  :ensure t)
 
 ;; ------------------------------------------------------------
 ;; Provide
