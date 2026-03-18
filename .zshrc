@@ -1,22 +1,24 @@
 # -*- mode: shell-script -*-
 
 export ZPLUG_HOME=/opt/homebrew/opt/zplug
-source $ZPLUG_HOME/init.zsh
+if [ -f "$ZPLUG_HOME/init.zsh" ]; then
+    source "$ZPLUG_HOME/init.zsh"
 
-zplug 'dracula/zsh', as:theme
-zplug 'zsh-users/zsh-syntax-highlighting', defer:2
-zplug 'zsh-users/zsh-completions'
-zplug 'olets/zsh-abbr'
+    zplug 'dracula/zsh', as:theme
+    zplug 'zsh-users/zsh-syntax-highlighting', defer:2
+    zplug 'zsh-users/zsh-completions'
+    zplug 'olets/zsh-abbr'
 
-# 未インストール項目をインストールする
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
+    # 未インストール項目をインストールする
+    if ! zplug check --verbose; then
+        printf "Install? [y/N]: "
+        if read -q; then
+            echo; zplug install
+        fi
     fi
-fi
 
-zplug load --verbose
+    zplug load --verbose
+fi
 
 setopt hist_expand           # 補完時にヒストリを自動的に展開
 setopt hist_ignore_all_dups  # ヒストリに追加されるコマンド行が古いものと同じなら古いものを削除
@@ -32,17 +34,15 @@ setopt share_history         # ヒストリの共有の有効化
 
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完時に大文字小文字を区別しない
 
-export PATH=/opt/homebrew/bin/:/opt/homebrew/sbin:$PYENV_ROOT/bin:$HOME/.local/bin:$HOME/.cabal/bin:$HOME/bin:/usr/local/bin:/bin:/sbin:/usr/sbin:/usr/bin:$PATH:$HOME/Dropbox/bin:$HOME/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/share/google-cloud-sdk/bin/:/home/linuxbrew/.linuxbrew/bin/:/opt/homebrew/opt/mysql-client@8.4/bin:
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PYENV_ROOT/bin:$HOME/.local/bin:$HOME/.cabal/bin:$HOME/bin:/usr/local/bin:/bin:/sbin:/usr/sbin:/usr/bin:$PATH:$HOME/Dropbox/bin:$HOME/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/share/google-cloud-sdk/bin:/home/linuxbrew/.linuxbrew/bin:/opt/homebrew/opt/mysql-client@8.4/bin"
 if command -v aqua 1>/dev/null 2>&1; then
     export PATH="$(aqua root-dir)/bin:$PATH"
 fi
 
 export LANG=ja_JP.UTF-8
-export LC_ALL=ja_JP.UTF-8
-export LC_CTYPE=C
 export EDITOR="emacs -nw -q"
 export GOPATH=$HOME
-export PYENV_ROOT="$HOME/.pyenv"
 export BUNDLER_EDITOR="emacsclient -n"
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@3)"
 export CPPFLAGS="-I/usr/local/opt/openjdk/include"
@@ -137,8 +137,13 @@ bindkey '^r' peco-select-history
 
 # peco git-project
 function peco-cd-git-project() {
-    cd $(ghq list -p | peco)
-    zle accept-line
+    local dir
+
+    dir="$(ghq list -p | peco)"
+    if [ -n "$dir" ]; then
+        cd -- "$dir"
+        zle accept-line
+    fi
 }
 zle -N peco-cd-git-project
 bindkey '^]' peco-cd-git-project
