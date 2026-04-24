@@ -11,9 +11,11 @@ if [ -f "$ZPLUG_HOME/init.zsh" ]; then
 
     # 未インストール項目をインストールする
     if ! zplug check --verbose; then
-        printf "Install? [y/N]: "
-        if read -q; then
-            echo; zplug install
+        if [[ -t 0 ]]; then
+            printf "Install? [y/N]: "
+            if read -q; then
+                echo; zplug install
+            fi
         fi
     fi
 
@@ -35,7 +37,7 @@ setopt share_history         # ヒストリの共有の有効化
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完時に大文字小文字を区別しない
 
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PYENV_ROOT/bin:$HOME/.local/bin:$HOME/.cabal/bin:$HOME/bin:/usr/local/bin:/bin:/sbin:/usr/sbin:/usr/bin:$PATH:$HOME/Dropbox/bin:$HOME/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/share/google-cloud-sdk/bin:/home/linuxbrew/.linuxbrew/bin:/opt/homebrew/opt/mysql-client@8.4/bin"
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PYENV_ROOT/bin:$HOME/.local/bin:$HOME/.cabal/bin:$HOME/bin:/opt/homebrew/opt/openjdk/bin:/opt/homebrew/share/google-cloud-sdk/bin:/opt/homebrew/opt/mysql-client@8.4/bin:/usr/local/bin:/bin:/sbin:/usr/sbin:/usr/bin:$PATH"
 if command -v aqua 1>/dev/null 2>&1; then
     export PATH="$(aqua root-dir)/bin:$PATH"
 fi
@@ -161,13 +163,13 @@ zle -N peco-bundle-open
 bindkey '^o' peco-bundle-open
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/oyamada/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/oyamada/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/oyamada/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/oyamada/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/oyamada/.orbstack/bin:$PATH"
+export PATH="$HOME/.orbstack/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
@@ -175,7 +177,7 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 # pnpm
-export PNPM_HOME="/Users/oyamada/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
