@@ -92,7 +92,10 @@
   :doc "ファイル変更時にバッファを自動更新"
   :tag "builtin"
   :added "2025-02-19"
-  :config (global-auto-revert-mode 1))
+  :custom ((auto-revert-interval   . 1)
+           (auto-revert-check-vc-info . t)
+           (auto-revert-verbose    . nil))
+  :global-minor-mode global-auto-revert-mode)
 
 (leaf delsel
   :doc "選択状態にあるときは文字入力で置換"
@@ -374,6 +377,15 @@
   :after dired
   :config
   (define-key dired-mode-map "r" #'wdired-change-to-wdired-mode))
+
+(leaf markdown-mode
+  :doc "Markdown ファイルの編集・プレビュー"
+  :ensure t
+  :mode (("\\.md\\'" . gfm-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :custom ((markdown-command . "multimarkdown")
+           (markdown-fontify-code-blocks-natively . t))
+  :hook (markdown-mode-hook . visual-line-mode))
 
 (leaf nerd-icons
   :doc "Nerd Fonts アイコンライブラリ (all-the-icons の後継)"
